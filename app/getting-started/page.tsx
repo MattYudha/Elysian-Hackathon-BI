@@ -83,12 +83,10 @@ export default function GettingStartedPage() {
 
             {/* Main Content Area */}
             <main className="flex-1 flex flex-col min-h-screen relative z-10 w-full min-w-0">
-                {/* Sticky Navbar Wrapper */}
-                <div className="sticky top-0 z-40 w-full backdrop-blur-sm bg-[#f0f9ff]/80 dark:bg-[#0B1120]/80 supports-[backdrop-filter]:bg-[#f0f9ff]/50 dark:supports-[backdrop-filter]:bg-[#0B1120]/50">
-                    <DashboardNavbar staticMode={true} />
-                </div>
+                {/* Floating Navbar */}
+                <DashboardNavbar />
 
-                <div className="flex-1 px-6 md:px-10 py-6 pb-16">
+                <div id="main-scroll-container" className="flex-1 overflow-y-auto px-6 md:px-10 py-6 pb-16 pt-24">
                     <div className="max-w-5xl mx-auto w-full">
 
                         {/* Header */}

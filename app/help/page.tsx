@@ -41,21 +41,13 @@ export default function HelpPage() {
                     
                     I'll use Sticky wrapper with a slight gradient or just transparent, allowing blue to be seen.
                  */}
-                <div className="sticky top-0 z-40 w-full backdrop-blur-none transition-all duration-300">
-                    {/* For Help Page, the header is blue. Sticky navbar might look weird if it turns white while still on blue background.
-                         I'll keep it simple: Sticky, Transparent.
-                         Or actually, let the blue header scrol away? 
-                         User said "navbar nya beda".
-                         Let's just put the standard navbar there.
-                      */}
-                    <div className="absolute inset-0 bg-white/0 backdrop-blur-none" /> {/* Placeholder for logic if needed */}
-                    <DashboardNavbar staticMode={true} />
-                </div>
+                {/* Floating Navbar */}
+                <DashboardNavbar />
 
-                <div className="flex-1">
+                <div id="main-scroll-container" className="flex-1 overflow-y-auto">
                     {/* Header Section with Rocket & Search */}
-                    {/* Added negative margin top to pull blue header UNDER the transparent navbar */}
-                    <div className="bg-[#1ca0e3] dark:bg-blue-900/80 relative overflow-hidden -mt-16 pt-24 pb-16 border-b border-transparent dark:border-blue-800/50">
+                    {/* Floating navbar sits over this now, so we add pt-24 to content to clear it */}
+                    <div className="bg-[#1ca0e3] dark:bg-blue-900/80 relative overflow-hidden pt-24 pb-16 border-b border-transparent dark:border-blue-800/50">
 
                         {/* Background Elements (Clouds/Rocket) */}
                         <div className="absolute inset-0 pointer-events-none">

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { motion } from 'framer-motion';
 import { User, Settings, LogOut, LayoutGrid, Bot, Sun, Moon, Grid2x2, Grid2x2X } from 'lucide-react';
 import { Button } from '@/components/ui/';
 import { cn } from '@/lib/utils';
@@ -38,23 +39,28 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
     useEffect(() => {
         const handleScroll = () => {
             const container = document.getElementById('main-scroll-container');
-            // If container exists, use its scrollTop, otherwise use window.scrollY
-            const scrollY = container ? container.scrollTop : window.scrollY;
-            const isScrolled = scrollY > 20;
-            setScrolled(isScrolled);
+            const containerScroll = container ? container.scrollTop : 0;
+            const windowScroll = window.scrollY || document.documentElement.scrollTop;
+            const scrollValue = Math.max(containerScroll, windowScroll);
+            setScrolled(scrollValue > 20);
         };
 
-        // Check availability of the container
         const container = document.getElementById('main-scroll-container');
-        const target = container || window;
-
-        target.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        if (container) {
+            container.addEventListener('scroll', handleScroll, { passive: true });
+        }
 
         // Also trigger once on mount to check initial state
         handleScroll();
 
-        return () => target.removeEventListener('scroll', handleScroll);
-    }, []);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (container) {
+                container.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [pathname]);
 
     const getPageTitle = () => {
         if (pathname === '/dashboard') return 'Dashboard';
@@ -68,20 +74,44 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
         return 'Elysian';
     };
 
+    const isDark = theme === 'dark';
+
     return (
         <div className={cn(
-            staticMode ? "relative w-full" : "fixed left-0 right-0 z-40 transition-all duration-500 ease-in-out pointer-events-none",
-            !staticMode && (scrolled ? "top-4 px-4" : "top-0 px-0")
+            "w-full z-40 transition-all",
+            staticMode ? "relative" : "sticky top-4 h-0 pointer-events-none"
         )}>
-            <header className={cn(
-                "mx-auto flex items-center justify-between transition-all duration-500 ease-in-out",
-                staticMode
-                    ? "h-16 w-full px-6 bg-transparent"
-                    : "pointer-events-auto",
-                !staticMode && (scrolled
-                    ? "h-14 max-w-5xl rounded-full border border-white/40 dark:border-blue-900/40 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(30,58,138,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] px-4"
-                    : "h-20 w-full max-w-7xl bg-white/50 dark:bg-[#0B1120]/50 backdrop-blur-md border-b border-blue-900/5 dark:border-white/10 px-6 sm:px-8")
-            )}>
+            <motion.header
+                initial="initial"
+                animate={!staticMode ? (scrolled ? "scrolled" : "initial") : "static"}
+                variants={{
+                    static: {
+                        backgroundColor: "transparent",
+                        backdropFilter: "blur(0px)",
+                        boxShadow: "none"
+                    },
+                    initial: {
+                        backgroundColor: isDark ? "rgba(15, 23, 42, 0)" : "rgba(255, 255, 255, 0)",
+                        backdropFilter: "blur(0px)",
+                        boxShadow: "none"
+                    },
+                    scrolled: {
+                        backgroundColor: isDark ? "rgba(15, 23, 42, 0.85)" : "rgba(255, 255, 255, 0.9)",
+                        backdropFilter: "blur(12px)",
+                        boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.1)"
+                    }
+                }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className={cn(
+                    "mx-auto flex items-center justify-between transition-all duration-300 rounded-full border border-transparent pointer-events-auto",
+                    staticMode
+                        ? "h-16 w-full px-6 bg-transparent"
+                        : "w-[95%] md:w-full max-w-5xl",
+                    !staticMode && (scrolled
+                        ? "h-14 border-slate-200/50 dark:border-slate-700/50 px-4"
+                        : "h-16 px-4")
+                )}
+            >
 
                 {/* Left Side: Logo & Breadcrumbs */}
                 <div className="flex items-center gap-4">
@@ -190,7 +220,7 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-            </header >
+            </motion.header >
         </div >
     );
 }

@@ -18,12 +18,10 @@ export default function DashboardLayout({
             </div>
 
             <main className="flex-1 flex flex-col min-h-screen relative w-full">
-                {/* Navbar is strictly static here to push content down */}
-                <div className="flex-none">
-                    <DashboardNavbar staticMode />
-                </div>
+                {/* Floating Navbar */}
+                <DashboardNavbar />
 
-                <div id="main-scroll-container" className="flex-1 overflow-y-auto pb-16 md:pb-8">
+                <div id="main-scroll-container" className="flex-1 overflow-y-auto pb-16 md:pb-8 pt-24">
                     <div className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8">
                         {children}
                     </div>

@@ -14,12 +14,10 @@ export default function ChatLayout({
             <Sidebar />
 
             <main className="flex-1 flex flex-col h-full overflow-hidden relative">
-                {/* Navbar is strictly static here to push content down */}
-                <div className="flex-none">
-                    <DashboardNavbar staticMode />
-                </div>
+                {/* Floating Navbar */}
+                <DashboardNavbar />
 
-                <div className="flex-1 overflow-hidden flex flex-col pb-16 md:pb-0">
+                <div id="main-scroll-container" className="flex-1 overflow-hidden flex flex-col pb-16 md:pb-0 pt-24">
                     {children}
                 </div>
             </main>

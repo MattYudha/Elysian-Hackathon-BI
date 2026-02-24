@@ -14,6 +14,7 @@ import { ChevronLeft, User, Smartphone, Save, Shield } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema, type ProfileFormValues } from '@/lib/schemas/profile';
+import { useSettingsUiStore } from '@/store/ui/settingsStore';
 
 // Mock User Data Interface
 interface UserProfile {
@@ -41,8 +42,9 @@ export default function ProfilePage() {
         }
     });
 
-    const { register, handleSubmit, setValue, watch, formState: { errors } } = form;
+    const { register, handleSubmit, setValue, watch, formState: { errors, isDirty } } = form;
     const currentAvatar = watch('avatar');
+    const { setFormDirty } = useSettingsUiStore();
 
     // Hydration Fix: Wait for client-side load
     useEffect(() => {
@@ -62,6 +64,12 @@ export default function ProfilePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profile]);
 
+    // Sync form dirty state with Zustand
+    useEffect(() => {
+        setFormDirty(isDirty);
+        return () => setFormDirty(false);
+    }, [isDirty, setFormDirty]);
+
     if (!hasHydrated) return <div className="p-8 text-center text-slate-500">Loading profile settings...</div>;
 
     const onSubmit = (data: ProfileFormValues) => {
@@ -73,6 +81,7 @@ export default function ProfilePage() {
             bio: data.bio || ''
         };
         updateProfile(updatedUser);
+        form.reset(data); // Resets isDirty state
         toast.success("Profil berhasil diperbarui", {
             description: "Data Anda telah tersimpan di sistem lokal.",
         });

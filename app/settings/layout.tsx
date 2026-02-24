@@ -1,10 +1,12 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { User, Lock, Bell, Palette, ChevronLeft, Settings, Users, ShieldCheck, Activity, CreditCard, Import, Bot, Zap, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { buttonVariants, Button } from '@/components/ui/button';
+import { useSettingsUiStore } from '@/store/ui/settingsStore';
 
 import { Sidebar } from '@/components/Sidebar';
 import { DashboardNavbar } from '@/components/DashboardNavbar';
@@ -43,6 +45,38 @@ const sidebarGroups = [
 export default function SettingsLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
+    const isFormDirty = useSettingsUiStore((s) => s.isFormDirty);
+    const setFormDirty = useSettingsUiStore((s) => s.setFormDirty);
+
+    // Native browser unload interceptor
+    useEffect(() => {
+        const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+            if (isFormDirty) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [isFormDirty]);
+
+    const handleNavigation = (e: React.MouseEvent, href: string) => {
+        if (isFormDirty) {
+            e.preventDefault();
+            const confirmLeave = window.confirm("Anda memiliki perubahan yang belum disimpan. Yakin ingin pindah?");
+            if (confirmLeave) {
+                setFormDirty(false); // Force clean state
+                if (href === 'back') router.back();
+                else router.push(href);
+            }
+        }
+        // If not dirty, Next.js Link handles the rest automatically.
+        // For buttons, we still need to push manually if not dirty.
+        else if (e.currentTarget.tagName !== 'A') {
+            if (href === 'back') router.back();
+            else router.push(href);
+        }
+    };
 
     return (
         <div className="flex min-h-screen w-full relative z-0">
@@ -70,7 +104,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                         variant="ghost"
                         size="icon"
                         className="absolute top-4 right-4 z-50 rounded-full md:hidden text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
-                        onClick={() => router.push('/dashboard')}
+                        onClick={(e) => handleNavigation(e, 'back')}
                     >
                         <X className="h-5 w-5" />
                     </Button>
@@ -93,6 +127,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                                 <Link
                                                     key={item.href}
                                                     href={item.href}
+                                                    onClick={(e) => handleNavigation(e, item.href)}
                                                     className={cn(
                                                         "flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200",
                                                         isActive
@@ -119,7 +154,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                 variant="ghost"
                                 size="icon"
                                 className="h-8 w-8 rounded-md text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                                onClick={() => router.push('/dashboard')}
+                                onClick={(e) => handleNavigation(e, 'back')}
                             >
                                 <X className="h-4 w-4" />
                             </Button>

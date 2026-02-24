@@ -2,6 +2,7 @@
 
 import { Sidebar } from '@/components/Sidebar';
 import { DashboardNavbar } from '@/components/DashboardNavbar';
+import { ElysianGrid } from '@/components/backgrounds/ElysianGrid';
 
 export default function KnowledgeLayout({
     children,
@@ -9,7 +10,8 @@ export default function KnowledgeLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex h-screen w-full overflow-hidden bg-slate-50 dark:bg-zinc-950">
+        <div className="flex h-screen w-full overflow-hidden relative z-0">
+            <ElysianGrid />
             {/* Legacy Sidebar Fixed */}
             <Sidebar />
 
@@ -20,7 +22,9 @@ export default function KnowledgeLayout({
                 </div>
 
                 <div id="main-scroll-container" className="flex-1 overflow-y-auto">
-                    {children}
+                    <div className="w-full max-w-7xl mx-auto p-4 md:p-6 lg:p-8">
+                        {children}
+                    </div>
                 </div>
             </main>
         </div>

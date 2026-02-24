@@ -9,6 +9,7 @@ import { buttonVariants } from '@/components/ui/button';
 
 import { Sidebar } from '@/components/Sidebar';
 import { DashboardNavbar } from '@/components/DashboardNavbar';
+import { ElysianGrid } from '@/components/backgrounds/ElysianGrid';
 
 const sidebarItems = [
     { href: '/settings/profile', title: 'Profil', icon: User },
@@ -21,21 +22,22 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
     const pathname = usePathname();
 
     return (
-        <div className="flex min-h-screen w-full bg-slate-50 dark:bg-zinc-950">
+        <div className="flex min-h-screen w-full relative z-0">
+            <ElysianGrid />
             {/* Sidebar Sticky for Desktop */}
             <div className="hidden md:block sticky top-0 h-screen flex-none">
                 <Sidebar />
             </div>
 
-            <main className="flex-1 flex flex-col min-h-screen relative w-full overflow-x-hidden">
+            <main className="flex-1 flex flex-col min-h-screen relative w-full">
                 {/* Navbar */}
                 <div className="flex-none">
                     <DashboardNavbar staticMode />
                 </div>
 
-                <div id="main-scroll-container" className="flex-1 pb-16 md:pb-8 p-4 md:p-6 lg:p-8">
+                <div id="main-scroll-container" className="flex-1 overflow-y-auto pb-16 md:pb-8">
                     {/* Original Settings Layout Content Wrapped Here */}
-                    <div className="container max-w-6xl mx-auto space-y-8 relative">
+                    <div className="container max-w-6xl mx-auto space-y-8 relative p-4 md:p-6 lg:p-8">
                         <div>
                             <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Pengaturan</h1>
                             <p className="text-slate-500 dark:text-slate-400">Kelola akun dan preferensi Elysian Anda.</p>
@@ -53,7 +55,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                                 buttonVariants({ variant: 'ghost' }),
                                                 "justify-start",
                                                 pathname === item.href
-                                                    ? "bg-blue-50 text-blue-700 font-semibold dark:bg-blue-900/20 dark:text-blue-400"
+                                                    ? "bg-blue-50 text-blue-700 font-semibold dark:bg-blue-900/40 dark:text-blue-400"
                                                     : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
                                             )}
                                         >
@@ -75,7 +77,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                                 "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors border",
                                                 pathname === item.href
                                                     ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20"
-                                                    : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800"
+                                                    : "bg-white dark:bg-[#0B1120] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-blue-900/30"
                                             )}
                                         >
                                             <item.icon className="h-3.5 w-3.5" />

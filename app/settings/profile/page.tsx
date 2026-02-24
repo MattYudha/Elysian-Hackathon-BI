@@ -85,9 +85,9 @@ export default function ProfilePage() {
                         <p className="text-sm text-slate-500 mt-1">Update your personal details that will be displayed on your public profile.</p>
                     </div>
 
-                    <div className="bg-white dark:bg-slate-900 p-0 md:p-8 md:border md:border-slate-200 md:dark:border-slate-800 md:rounded-2xl md:shadow-sm">
+                    <div className="bg-white dark:bg-[#0B1120]/60 p-0 md:p-8 md:border md:border-slate-200 md:dark:border-blue-900/30 md:rounded-2xl md:shadow-sm glass-obsidian">
                         {/* Compact Avatar Row for Layout Efficiency */}
-                        <div className="flex items-center gap-6 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
+                        <div className="flex items-center gap-6 mb-8 pb-8 border-b border-slate-100 dark:border-blue-900/30">
                             <Avatar className="h-20 w-20 border-2 border-slate-100 dark:border-slate-700">
                                 <AvatarImage src={formData.avatar || ''} className="object-cover" />
                                 <AvatarFallback className="text-xl bg-slate-100 dark:bg-slate-800">{formData.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -130,7 +130,7 @@ export default function ProfilePage() {
                                         id="firstName"
                                         value={formData.name.split(' ')[0] || ''}
                                         onChange={(e) => setFormData(prev => ({ ...prev, name: `${e.target.value} ${prev.name.split(' ').slice(1).join(' ')}` }))}
-                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg focus-visible:ring-blue-500"
+                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg focus-visible:ring-blue-500"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -139,7 +139,7 @@ export default function ProfilePage() {
                                         id="lastName"
                                         value={formData.name.split(' ').slice(1).join(' ') || ''}
                                         onChange={(e) => setFormData(prev => ({ ...prev, name: `${prev.name.split(' ')[0]} ${e.target.value}` }))}
-                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg focus-visible:ring-blue-500"
+                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg focus-visible:ring-blue-500"
                                     />
                                 </div>
                             </div>
@@ -151,7 +151,7 @@ export default function ProfilePage() {
                                     <Input
                                         id="jobTitle"
                                         defaultValue="Product Manager"
-                                        className="h-10 pl-9 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg focus-visible:ring-blue-500"
+                                        className="h-10 pl-9 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg focus-visible:ring-blue-500"
                                     />
                                 </div>
                             </div>
@@ -164,7 +164,7 @@ export default function ProfilePage() {
                                         id="phone"
                                         value={formData.phone}
                                         onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                                        className="h-10 pl-9 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg focus-visible:ring-blue-500"
+                                        className="h-10 pl-9 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg focus-visible:ring-blue-500"
                                     />
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ export default function ProfilePage() {
                                 <Label htmlFor="bio" className="text-xs text-slate-500 font-semibold uppercase">Bio</Label>
                                 <textarea
                                     id="bio"
-                                    className="w-full min-h-[120px] p-3 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:visible:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-slate-950 resize-y"
+                                    className="w-full min-h-[120px] p-3 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-blue-900/50 rounded-lg focus-visible:ring-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-[#0B1120] resize-y"
                                     placeholder="Tell us about yourself..."
                                     defaultValue="Passionate about building great user experiences..."
                                 />
@@ -201,13 +201,13 @@ export default function ProfilePage() {
                         </div>
 
                         {/* Static Professional Card */}
-                        <div className="border border-slate-200 dark:border-slate-700 rounded-[1.5rem] p-1 bg-white dark:bg-slate-900 shadow-sm">
-                            <div className="bg-slate-50 dark:bg-slate-900 rounded-[1.3rem] p-6 text-center h-full relative overflow-hidden">
+                        <div className="border border-slate-200 dark:border-blue-900/30 rounded-[1.5rem] p-1 bg-white dark:bg-[#0B1120]/60 shadow-sm glass-obsidian">
+                            <div className="bg-slate-50 dark:bg-slate-900/50 rounded-[1.3rem] p-6 text-center h-full relative overflow-hidden">
                                 {/* Decor - Static & Subtle */}
                                 <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-blue-100/50 to-transparent dark:from-blue-900/20 pointer-events-none" />
 
                                 <div className="relative">
-                                    <div className="mx-auto w-24 h-24 rounded-full p-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 mb-4 shadow-sm">
+                                    <div className="mx-auto w-24 h-24 rounded-full p-1 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-blue-900/50 mb-4 shadow-sm">
                                         <Avatar className="w-full h-full">
                                             <AvatarImage src={formData.avatar || ''} className="object-cover" />
                                             <AvatarFallback className="bg-slate-100 text-2xl">{formData.name?.charAt(0) || 'U'}</AvatarFallback>
@@ -236,7 +236,7 @@ export default function ProfilePage() {
                         </div>
                     </div>
 
-                    <div className="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div className="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-blue-900/30">
                         <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Completion</h4>
                         <div className="flex items-center gap-3 mb-1">
                             <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">

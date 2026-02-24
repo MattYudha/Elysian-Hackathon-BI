@@ -31,10 +31,10 @@ export function PriorityActionQueue({ actions = [], isLoading }: PriorityActionQ
     ] as ActionItem[];
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="rounded-2xl p-5 glass-obsidian">
             <div className="mb-4 flex items-center justify-between">
-                <h3 className="font-semibold text-slate-900">Priority Queue</h3>
-                <span className="flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">
+                <h3 className="font-semibold text-slate-900 dark:text-slate-50">Priority Queue</h3>
+                <span className="flex items-center gap-1.5 rounded-full bg-blue-50 dark:bg-blue-500/10 px-2.5 py-1 text-xs font-semibold text-blue-700 dark:text-blue-400">
                     {items.length} Active
                 </span>
             </div>
@@ -49,14 +49,14 @@ export function PriorityActionQueue({ actions = [], isLoading }: PriorityActionQ
                                     "bg-blue-500 ring-blue-100"
                         )} />
 
-                        <div className="min-w-0 flex-1 border-b border-slate-100 pb-4 last:border-0 last:pb-0">
+                        <div className="min-w-0 flex-1 border-b border-slate-100 dark:border-slate-800/50 pb-4 last:border-0 last:pb-0">
                             <div className="flex items-center justify-between">
-                                <h4 className="truncate text-sm font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
+                                <h4 className="truncate text-sm font-medium text-slate-900 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                     {item.title}
                                 </h4>
-                                <span className="text-[10px] text-slate-400">{item.timestamp}</span>
+                                <span className="text-[10px] text-slate-400 dark:text-slate-500">{item.timestamp}</span>
                             </div>
-                            <p className="mt-0.5 text-xs text-slate-500 truncate">
+                            <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400 truncate">
                                 {item.description}
                             </p>
                         </div>
@@ -64,7 +64,7 @@ export function PriorityActionQueue({ actions = [], isLoading }: PriorityActionQ
                 ))}
             </div>
 
-            <button className="mt-2 w-full text-center text-xs font-medium text-slate-500 hover:text-slate-900">
+            <button className="mt-2 w-full text-center text-xs font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-colors">
                 View all activity
             </button>
         </div>

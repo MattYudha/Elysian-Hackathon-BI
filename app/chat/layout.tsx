@@ -1,5 +1,6 @@
 import { Sidebar } from '@/components/Sidebar';
 import { DashboardNavbar } from '@/components/DashboardNavbar';
+import { ElysianGrid } from '@/components/backgrounds/ElysianGrid';
 
 export default function ChatLayout({
     children,
@@ -7,7 +8,8 @@ export default function ChatLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex h-screen w-full overflow-hidden bg-slate-50 dark:bg-zinc-950">
+        <div className="flex h-screen w-full overflow-hidden relative z-0">
+            <ElysianGrid />
             {/* Legacy Sidebar Fixed */}
             <Sidebar />
 

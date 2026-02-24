@@ -11,7 +11,9 @@
 
 import { useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchWorkflows, fetchWorkflowById, saveWorkflow as saveWorkflowApi } from '@/services/workflow.service';
+import { fetchWorkflows, fetchWorkflowById, saveWorkflow as saveWorkflowApi, createWorkflow } from '@/services/workflow.service';
+export { fetchWorkflowById };
+
 import { useWorkflowStore } from '@/store/workflowStore';
 import { activityKeys } from '@/queries/activity.queries';
 import { toast } from 'sonner';
@@ -119,6 +121,24 @@ export function useSaveWorkflow() {
             } else {
                 toast.error('Failed to save. Your changes are preserved locally.');
             }
+        },
+    });
+}
+/**
+ * useCreateWorkflow — Create a new workflow/pipeline
+ */
+export function useCreateWorkflow() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: { name: string; status?: 'active' | 'draft' | 'archived' | 'processing' | 'completed' | 'queued' | 'failed' }) =>
+            createWorkflow(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: workflowKeys.lists() });
+            toast.success('Pipeline created successfully');
+        },
+        onError: () => {
+            toast.error('Failed to create pipeline');
         },
     });
 }

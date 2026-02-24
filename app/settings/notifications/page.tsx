@@ -46,7 +46,7 @@ export default function NotificationsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                         {/* Email Notifications */}
                         <div className="space-y-6">
-                            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 mb-4">
+                            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-blue-900/30 mb-4">
                                 <span className="p-1.5 bg-blue-100 dark:bg-blue-900/30 rounded text-blue-600 dark:text-blue-400">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
                                 </span>
@@ -92,7 +92,7 @@ export default function NotificationsPage() {
 
                         {/* Push Notifications */}
                         <div className="space-y-6">
-                            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 mb-4">
+                            <div className="flex items-center gap-2 pb-2 border-b border-slate-100 dark:border-blue-900/30 mb-4">
                                 <span className="p-1.5 bg-purple-100 dark:bg-purple-900/30 rounded text-purple-600 dark:text-purple-400">
                                     <Bell className="w-4 h-4" />
                                 </span>
@@ -142,7 +142,7 @@ export default function NotificationsPage() {
                 <div className="w-full lg:w-[320px] flex-shrink-0 space-y-6">
                     <div className="sticky top-6 space-y-4">
                         {/* Summary Card */}
-                        <div className="bg-white dark:bg-slate-900 p-6 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
+                        <div className="bg-white dark:bg-[#0B1120]/60 p-6 border border-slate-200 dark:border-blue-900/30 rounded-2xl shadow-sm glass-obsidian">
                             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Summary</h3>
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Active Channels</span>
@@ -157,14 +157,14 @@ export default function NotificationsPage() {
                         </div>
 
                         {/* Quick Actions */}
-                        <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4">
+                        <div className="bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-blue-900/30 rounded-xl p-4">
                             <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Quick Actions</h3>
                             <div className="space-y-2">
-                                <Button variant="outline" size="sm" className="w-full justify-start text-xs h-9 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                                <Button variant="outline" size="sm" className="w-full justify-start text-xs h-9 bg-white dark:bg-slate-800/50 border-slate-200 dark:border-blue-900/50">
                                     <span className="w-2 h-2 rounded-full bg-slate-400 mr-2" />
                                     Pause all for 1 hour
                                 </Button>
-                                <Button variant="outline" size="sm" className="w-full justify-start text-xs h-9 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
+                                <Button variant="outline" size="sm" className="w-full justify-start text-xs h-9 bg-white dark:bg-slate-800/50 border-slate-200 dark:border-blue-900/50">
                                     <span className="w-2 h-2 rounded-full bg-slate-400 mr-2" />
                                     Mute Team Mentions
                                 </Button>

@@ -20,13 +20,13 @@ export function KnowledgeHub({ documents = [], isLoading, onUpload }: KnowledgeH
     const [selectedDoc, setSelectedDoc] = useState<RagSource | null>(null);
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="space-y-8 animate-in fade-in duration-500 w-full">
             {/* Header Section Removed - Handled by Navbar */}
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column: Upload Zone (1/3 width) */}
                 <div className="lg:col-span-1 space-y-6">
-                    <Card className="border-slate-200 dark:border-slate-800 shadow-sm">
+                    <Card className="border-slate-200 dark:border-blue-900/30 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md shadow-sm glass-obsidian">
                         <CardHeader>
                             <CardTitle>Upload Sources</CardTitle>
                             <CardDescription>
@@ -53,14 +53,14 @@ export function KnowledgeHub({ documents = [], isLoading, onUpload }: KnowledgeH
 
                 {/* Right Column: Document List (2/3 width) */}
                 <div className="lg:col-span-2">
-                    <Card className="border-slate-200 dark:border-slate-800 shadow-sm h-full">
+                    <Card className="border-slate-200 dark:border-blue-900/30 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md shadow-sm h-full glass-obsidian">
                         <CardHeader>
                             <CardTitle>Indexed Documents</CardTitle>
                             <CardDescription>
                                 View and manage processed content.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="p-0">
+                        <CardContent>
                             {/* Pass handler to open drawer */}
                             <DocumentList documents={documents} isLoading={isLoading} onSelectDocument={(doc) => setSelectedDoc(doc)} />
                         </CardContent>

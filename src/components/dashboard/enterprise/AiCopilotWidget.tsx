@@ -26,16 +26,16 @@ export function AiCopilotWidget() {
     };
 
     return (
-        <div className="flex h-full min-h-[400px] lg:min-h-[600px] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <div className="flex h-full min-h-[400px] lg:min-h-[600px] flex-col overflow-hidden rounded-2xl shadow-sm glass-obsidian">
             {/* Header */}
-            <div className="border-b border-slate-100 bg-slate-50/50 p-5">
+            <div className="border-b border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50 p-5">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-lg shadow-blue-200">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-lg shadow-blue-500/20">
                         <Bot className="h-6 w-6" />
                     </div>
                     <div>
-                        <h3 className="font-semibold text-slate-900">Elysian Copilot</h3>
-                        <p className="text-xs text-slate-500">Always on. Ready to help.</p>
+                        <h3 className="font-semibold text-slate-900 dark:text-slate-50">Elysian Copilot</h3>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">Always on. Ready to help.</p>
                     </div>
                 </div>
             </div>
@@ -43,10 +43,10 @@ export function AiCopilotWidget() {
             {/* Content / Greeting */}
             <div className="flex-1 p-5">
                 <div className="mb-6">
-                    <h2 className="bg-gradient-to-br from-slate-900 to-slate-600 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
+                    <h2 className="bg-gradient-to-br from-slate-900 to-slate-600 dark:from-slate-100 dark:to-slate-400 bg-clip-text text-2xl font-bold tracking-tight text-transparent">
                         Good Afternoon, {user?.name?.split(' ')[0] || 'User'}
                     </h2>
-                    <p className="mt-2 text-sm text-slate-500">
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                         I&apos;ve analyzed your pipelines. 3 tasks require attention. How can I assist you today?
                     </p>
                 </div>
@@ -60,20 +60,20 @@ export function AiCopilotWidget() {
                                 setDraftMessage(action);
                                 router.push('/chat');
                             }}
-                            className="group flex w-full items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-3 text-left text-sm font-medium text-slate-700 hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700 transition-all"
+                            className="group flex w-full items-center justify-between rounded-xl border border-slate-100 dark:border-slate-800/50 bg-slate-50 dark:bg-slate-900/50 p-3 text-left text-sm font-medium text-slate-700 dark:text-slate-300 hover:border-blue-200 dark:hover:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-700 dark:hover:text-blue-400 transition-all"
                         >
                             <span className="flex items-center gap-2">
                                 <Sparkles className="h-4 w-4 text-blue-500 opacity-0 transition-opacity group-hover:opacity-100" />
                                 {action}
                             </span>
-                            <ChevronRight className="h-4 w-4 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-blue-400" />
+                            <ChevronRight className="h-4 w-4 text-slate-300 dark:text-slate-500 transition-transform group-hover:translate-x-1 group-hover:text-blue-400" />
                         </button>
                     ))}
                 </div>
             </div>
 
             {/* Input Footer */}
-            <div className="mt-auto border-t border-slate-100 bg-white p-4">
+            <div className="mt-auto border-t border-slate-100 dark:border-slate-800/50 bg-white/50 dark:bg-[#0B1120]/80 p-4">
                 <div className="relative">
                     <input
                         type="text"
@@ -81,7 +81,7 @@ export function AiCopilotWidget() {
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
                         placeholder="Ask Copilot anything..."
-                        className="w-full rounded-xl border-0 bg-slate-100 py-3.5 pl-4 pr-12 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-blue-500 transition-all shadow-inner"
+                        className="w-full rounded-xl border border-transparent dark:border-slate-700 bg-slate-100 dark:bg-slate-800 py-3.5 pl-4 pr-12 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:bg-white dark:focus:bg-[#0B1120] focus:ring-2 focus:ring-blue-500 transition-all shadow-inner"
                     />
                     <button
                         onClick={handleSend}

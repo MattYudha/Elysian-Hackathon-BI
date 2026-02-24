@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/';
 // Helper for consistent shimmering effect
 function ShimmerBlock({ className, style }: { className?: string, style?: React.CSSProperties }) {
     return (
-        <Skeleton className={`bg-slate-200/60 animate-pulse ${className}`} style={style} />
+        <Skeleton className={`bg-slate-200/60 dark:bg-slate-800/60 animate-pulse ${className}`} style={style} />
     );
 }
 
@@ -132,15 +132,15 @@ export function ChatSkeleton() {
 
 export function EditorSkeleton() {
     return (
-        <div className="flex flex-col h-full animate-in fade-in duration-500 bg-slate-50/50">
+        <div className="flex flex-col h-full animate-in fade-in duration-500 bg-slate-50/50 dark:bg-[#0B1120]">
             {/* Toolbar Skeleton */}
-            <div className="h-16 border-b border-slate-200 bg-white flex items-center px-4 gap-4 sticky top-0 z-10">
+            <div className="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0B1120]/80 flex items-center px-4 gap-4 sticky top-0 z-10">
                 <div className="flex gap-2">
                     {[...Array(6)].map((_, i) => (
                         <ShimmerBlock key={i} className="h-8 w-8 rounded-md" />
                     ))}
                 </div>
-                <div className="h-8 w-px bg-slate-200 mx-2" />
+                <div className="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-2" />
                 <div className="flex gap-2">
                     {[...Array(3)].map((_, i) => (
                         <ShimmerBlock key={i} className="h-8 w-8 rounded-md" />
@@ -152,7 +152,7 @@ export function EditorSkeleton() {
 
             {/* Editor Canvas Area */}
             <div className="flex-1 p-8 overflow-hidden flex justify-center">
-                <div className="w-full max-w-3xl bg-white shadow-sm border border-slate-200 rounded-lg h-full p-12 space-y-6">
+                <div className="w-full max-w-3xl bg-white dark:bg-slate-900 shadow-sm border border-slate-200 dark:border-slate-800 rounded-lg h-full p-12 space-y-6">
                     {/* Document Title */}
                     <ShimmerBlock className="h-10 w-3/4 rounded-lg mb-8" />
 

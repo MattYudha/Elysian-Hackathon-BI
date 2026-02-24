@@ -48,9 +48,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
                                         <SessionTimeoutWarning />
                                         <GlobalCommandDialog />
                                         <div className="pb-0">
-                                            <SmoothScroll>
-                                                {children}
-                                            </SmoothScroll>
+                                            {isLandingPage ? (
+                                                <SmoothScroll>
+                                                    {children}
+                                                </SmoothScroll>
+                                            ) : (
+                                                <>{children}</>
+                                            )}
                                         </div>
                                         <Toaster />
                                         <SonnerToaster />

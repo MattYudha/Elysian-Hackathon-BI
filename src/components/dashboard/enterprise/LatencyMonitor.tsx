@@ -20,37 +20,37 @@ export function LatencyMonitor({ data, isLoading }: LatencyMonitorProps) {
     const status = currentP95 < 200 ? 'healthy' : currentP95 < 500 ? 'degraded' : 'critical';
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl p-6 glass-obsidian">
             <div className="mb-6 flex items-start justify-between">
                 <div>
                     <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-semibold text-slate-900">MLOps Performance</h3>
+                        <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">MLOps Performance</h3>
                         {status === 'healthy' && (
-                            <span className="flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+                            <span className="flex items-center rounded-full bg-emerald-50 dark:bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-700 dark:text-emerald-400">
                                 <CheckCircle className="mr-1 h-3 w-3" /> Healthy
                             </span>
                         )}
                         {status !== 'healthy' && (
-                            <span className="flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">
+                            <span className="flex items-center rounded-full bg-amber-50 dark:bg-amber-500/10 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:text-amber-400">
                                 <AlertCircle className="mr-1 h-3 w-3" /> Degradation
                             </span>
                         )}
                     </div>
-                    <p className="text-sm text-slate-500">End-to-end inference latency (ms)</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">End-to-end inference latency (ms)</p>
 
-                    <div className="mt-4 flex gap-6">
+                    <div className="mt-4 flex flex-wrap gap-4 sm:gap-6">
                         <div>
                             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">p95 Latency</p>
-                            <p className="text-2xl font-bold text-slate-900">{currentP95}ms</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-slate-50">{currentP95}ms</p>
                         </div>
                         <div>
                             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">p99 Latency</p>
-                            <p className="text-2xl font-bold text-slate-500">{currentP99}ms</p>
+                            <p className="text-2xl font-bold text-slate-500 dark:text-slate-400">{currentP99}ms</p>
                         </div>
                     </div>
                 </div>
 
-                <button className="text-slate-400 hover:text-slate-600 p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <button className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                     <MoreHorizontal className="h-5 w-5" />
                 </button>
             </div>
@@ -58,7 +58,7 @@ export function LatencyMonitor({ data, isLoading }: LatencyMonitorProps) {
             <div className="h-[240px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={data} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                        <CartesianGrid vertical={false} stroke="#f1f5f9" strokeDasharray="3 3" />
+                        <CartesianGrid vertical={false} strokeOpacity={0.05} strokeDasharray="3 3" />
                         <XAxis
                             dataKey="timestamp"
                             axisLine={false}
@@ -74,9 +74,10 @@ export function LatencyMonitor({ data, isLoading }: LatencyMonitorProps) {
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'white',
+                                backgroundColor: 'var(--card)',
                                 borderRadius: '12px',
-                                border: '1px solid #e2e8f0',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                color: 'var(--foreground)',
                                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                             }}
                             itemStyle={{ fontSize: '12px' }}

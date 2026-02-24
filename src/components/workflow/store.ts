@@ -41,7 +41,7 @@ const initialUI: UIState = {
 const initialNodes: Node<WorkflowNodeData>[] = [
     {
         id: 'start-1',
-        type: 'input',
+        type: 'start',
         data: { label: 'Start Trigger' },
         position: { x: 250, y: 50 },
     },

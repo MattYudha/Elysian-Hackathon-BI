@@ -21,13 +21,13 @@ export function TokenUsageChartCard({ data, isLoading }: TokenUsageChartCardProp
     }
 
     return (
-        <div className="h-full flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="h-full flex flex-col justify-between rounded-2xl p-5 glass-obsidian">
             <div className="mb-6 flex items-center justify-between">
                 <div>
-                    <h3 className="font-semibold text-slate-900">Token Consumption</h3>
-                    <p className="text-xs text-slate-500">Daily usage vs projection</p>
+                    <h3 className="font-semibold text-slate-900 dark:text-slate-50">Token Consumption</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Daily usage vs projection</p>
                 </div>
-                <button className="text-slate-400 hover:text-slate-600">
+                <button className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
                     <MoreHorizontal className="h-5 w-5" />
                 </button>
             </div>
@@ -41,7 +41,7 @@ export function TokenUsageChartCard({ data, isLoading }: TokenUsageChartCardProp
                                 <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
                             </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" strokeOpacity={0.15} />
                         <XAxis
                             dataKey="day"
                             axisLine={false}
@@ -56,7 +56,7 @@ export function TokenUsageChartCard({ data, isLoading }: TokenUsageChartCardProp
                             tickFormatter={(value) => `${value / 1000}k`}
                         />
                         <Tooltip
-                            contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                            contentStyle={{ borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', background: 'var(--card)', color: 'var(--foreground)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                             itemStyle={{ fontSize: '12px' }}
                         />
                         <Area

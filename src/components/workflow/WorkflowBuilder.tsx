@@ -97,9 +97,9 @@ function WorkflowBuilderContent() {
     };
 
     return (
-        <div className="flex h-[calc(100vh-6rem)] w-full overflow-hidden bg-slate-50 relative">
+        <div className="flex h-[calc(100vh-6rem)] w-full overflow-hidden bg-slate-50 dark:bg-[#0B1120] relative">
             {/* Desktop Sidebar (Palette) */}
-            <div className="hidden md:flex flex-col h-full z-20 shadow-xl shadow-slate-200/50">
+            <div className="hidden md:flex flex-col h-full z-20 shadow-xl shadow-slate-200/50 dark:shadow-none border-r border-slate-200/50 dark:border-blue-900/30">
                 <Sidebar onNodeSelect={onNodeSelect} />
             </div>
 
@@ -126,19 +126,19 @@ function WorkflowBuilderContent() {
             </div>
 
             {/* Desktop Config Panel */}
-            <div className="hidden lg:block h-full z-20 shadow-xl shadow-slate-200/50">
+            <div className="hidden lg:block h-full z-20 shadow-xl shadow-slate-200/50 dark:shadow-none border-l border-slate-200/50 dark:border-blue-900/30">
                 <ConfigPanel />
             </div>
 
             {/* MOBILE: Sidebar Sheet (Bottom) */}
             <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-                <SheetContent side="bottom" className="h-[50vh] p-0 md:hidden">
+                <SheetContent side="bottom" className="h-[50vh] p-0 md:hidden bg-white dark:bg-[#0B1120] border-t border-slate-200 dark:border-blue-900/30">
                     <div className="h-full overflow-y-auto">
-                        <div className="p-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
-                            <h3 className="font-bold text-slate-800 flex items-center gap-2">
+                        <div className="p-4 border-b border-slate-100 dark:border-blue-900/30 flex items-center justify-between sticky top-0 bg-white dark:bg-slate-900/40 z-10 backdrop-blur-md">
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
                                 <Plus className="h-4 w-4 text-blue-500" /> Add Node
                             </h3>
-                            <div className="text-xs text-slate-400">Drag or Tap to Add</div>
+                            <div className="text-xs text-slate-400 dark:text-slate-500">Drag or Tap to Add</div>
                         </div>
                         <div className="p-4">
                             <Sidebar onNodeSelect={onNodeSelect} />
@@ -149,11 +149,11 @@ function WorkflowBuilderContent() {
 
             {/* MOBILE: Config Sheet (Right) */}
             <Sheet open={isConfigOpen} onOpenChange={(open) => !open && setSelectedNode(null)}>
-                <SheetContent side="right" className="w-[90vw] sm:w-[500px] p-0 md:hidden z-[60]">
+                <SheetContent side="right" className="w-[90vw] sm:w-[500px] p-0 md:hidden z-[60] bg-white dark:bg-[#0B1120] border-l border-slate-200 dark:border-blue-900/30">
                     <div className="h-full overflow-hidden flex flex-col">
-                        <div className="p-4 border-b border-slate-100 flex items-center gap-2 bg-slate-50">
-                            <Settings2 className="h-4 w-4 text-slate-500" />
-                            <span className="font-semibold text-sm text-slate-700">Node Configuration</span>
+                        <div className="p-4 border-b border-slate-100 dark:border-blue-900/30 flex items-center gap-2 bg-slate-50 dark:bg-slate-900/40">
+                            <Settings2 className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+                            <span className="font-semibold text-sm text-slate-700 dark:text-slate-300">Node Configuration</span>
                         </div>
                         <div className="flex-1 overflow-y-auto">
                             <ConfigPanel />

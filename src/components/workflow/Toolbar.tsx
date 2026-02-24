@@ -31,15 +31,15 @@ export function Toolbar({ mobileMode, setMobileMode, setIsSidebarOpen }: Toolbar
     return (
         <>
             {/* DESKTOP TOOLBAR (Top Right) */}
-            <div className="hidden md:flex absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-lg border border-slate-200 shadow-sm z-10 items-center gap-2">
-                <div className="px-3 py-1 flex flex-col items-end mr-2 border-r border-slate-100 pr-4">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider ${meta.status === 'published' ? 'text-green-600' : 'text-amber-500'}`}>
+            <div className="hidden md:flex absolute top-4 right-4 bg-white/90 dark:bg-slate-900/40 backdrop-blur-md p-2 rounded-lg border border-slate-200 dark:border-blue-900/30 shadow-sm z-10 items-center gap-2 glass-obsidian">
+                <div className="px-3 py-1 flex flex-col items-end mr-2 border-r border-slate-100 dark:border-blue-900/30 pr-4">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider ${meta.status === 'published' ? 'text-green-600 dark:text-green-500' : 'text-amber-500 dark:text-amber-400'}`}>
                         {meta.status}
                     </span>
-                    <span className="text-xs font-mono text-slate-600">v{meta.version}</span>
+                    <span className="text-xs font-mono text-slate-600 dark:text-slate-400">v{meta.version}</span>
                 </div>
 
-                <Button variant="outline" size="sm" onClick={handlePublish} className="h-8 gap-1.5 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200">
+                <Button variant="outline" size="sm" onClick={handlePublish} className="h-8 gap-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 border-slate-200 dark:border-slate-800/80 hover:border-blue-200 dark:hover:border-blue-500/50 bg-white/80 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300">
                     <Save className="h-3.5 w-3.5" />
                     Publish
                 </Button>

@@ -33,14 +33,14 @@ export function PrimaryKpiCard({
     const sparklineData = (trendData || [40, 30, 45, 50, 45, 60, 55, 70, 65, 80]).map((val, i) => ({ i, val }));
 
     return (
-        <div className="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-md">
+        <div className="relative overflow-hidden rounded-xl p-5 transition-all hover:shadow-md glass-obsidian">
             <div className="mb-2 flex items-center justify-between">
-                <p className="text-sm font-medium text-slate-500">{label}</p>
-                {Icon && <Icon className="h-4 w-4 text-slate-400" />}
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">{label}</p>
+                {Icon && <Icon className="h-4 w-4 text-slate-400 dark:text-slate-500" />}
             </div>
 
             <div className="flex items-baseline gap-2">
-                <h3 className="text-2xl font-bold tracking-tight text-slate-900">
+                <h3 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
                     {value}
                 </h3>
             </div>
@@ -50,9 +50,9 @@ export function PrimaryKpiCard({
                 {delta !== undefined && (
                     <div className={cn(
                         "flex items-center gap-0.5 rounded-full px-2 py-0.5 text-xs font-medium",
-                        isPositive ? "bg-emerald-50 text-emerald-700" :
-                            isNeutral ? "bg-slate-50 text-slate-600" :
-                                "bg-rose-50 text-rose-700"
+                        isPositive ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400" :
+                            isNeutral ? "bg-slate-50 dark:bg-slate-500/10 text-slate-600 dark:text-slate-400" :
+                                "bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400"
                     )}>
                         {isPositive ? <ArrowUpRight className="h-3 w-3" /> :
                             isNeutral ? <Minus className="h-3 w-3" /> :

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { User, Settings, LogOut, LayoutGrid, Infinity as InfinityIcon, Bot, Sun, Moon } from 'lucide-react';
+import { User, Settings, LogOut, LayoutGrid, Bot, Sun, Moon, Grid2x2, Grid2x2X } from 'lucide-react';
 import { Button } from '@/components/ui/';
 import { cn } from '@/lib/utils';
 import {
@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/';
 import { MobileSidebar } from './MobileSidebar';
 import { NotificationPopover } from '@/components/NotificationPopover';
+import { useUiStore } from '@/store/uiStore';
 
 // Placeholder for user avatar
 const UserAvatar = () => (
@@ -32,6 +33,7 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
     const { theme, setTheme } = useTheme();
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
+    const { isGridVisible, toggleGrid } = useUiStore();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -77,8 +79,8 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
                     ? "h-16 w-full px-6 bg-transparent"
                     : "pointer-events-auto",
                 !staticMode && (scrolled
-                    ? "h-14 max-w-5xl rounded-full border border-white/40 bg-white/70 backdrop-blur-xl shadow-[0_8px_32px_rgba(30,58,138,0.1)] px-4"
-                    : "h-20 w-full max-w-7xl bg-transparent border-b border-transparent px-6 sm:px-8")
+                    ? "h-14 max-w-5xl rounded-full border border-white/40 dark:border-blue-900/40 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(30,58,138,0.1)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] px-4"
+                    : "h-20 w-full max-w-7xl bg-white/50 dark:bg-[#0B1120]/50 backdrop-blur-md border-b border-blue-900/5 dark:border-white/10 px-6 sm:px-8")
             )}>
 
                 {/* Left Side: Logo & Breadcrumbs */}
@@ -93,13 +95,13 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
 
                     {/* Desktop Context: Page Title / Status */}
                     <div className="hidden md:flex items-center gap-3 ml-2 animate-in fade-in slide-in-from-left-2 duration-500">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/50 border border-slate-200/50">
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/50 dark:bg-slate-800/50 border border-slate-200/50 dark:border-blue-900/40">
                             {pathname.startsWith('/chat') ? (
-                                <Bot className="h-3.5 w-3.5 text-blue-600" />
+                                <Bot className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
                             ) : (
-                                <LayoutGrid className="h-3.5 w-3.5 text-slate-500" />
+                                <LayoutGrid className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400" />
                             )}
-                            <span className="text-xs font-semibold text-slate-600 tracking-wide uppercase">
+                            <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 tracking-wide uppercase">
                                 {getPageTitle()}
                             </span>
                         </div>
@@ -108,7 +110,7 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
 
                 {/* Mobile Page Title (Always visible on mobile) */}
                 <div className={cn(
-                    "absolute left-1/2 -translate-x-1/2 font-semibold text-slate-800 transition-all duration-500 md:hidden",
+                    "absolute left-1/2 -translate-x-1/2 font-semibold text-slate-800 dark:text-slate-100 transition-all duration-500 md:hidden",
                     scrolled ? "text-sm" : "text-base"
                 )}>
                     {getPageTitle()}
@@ -123,8 +125,8 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
                         variant="ghost"
                         size="icon"
                         className={cn(
-                            "rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all",
-                            scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50"
+                            "rounded-full text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all",
+                            scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50 dark:bg-slate-800/40"
                         )}
                         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     >
@@ -133,21 +135,30 @@ export function DashboardNavbar({ staticMode = false }: { staticMode?: boolean }
                         <span className="sr-only">Toggle theme</span>
                     </Button>
 
+                    {/* Grid Toggle Button */}
                     <Button
                         variant="ghost"
                         size="icon"
+                        title={isGridVisible ? 'Hide grid background' : 'Show grid background'}
                         className={cn(
-                            "rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 hidden sm:flex transition-all",
-                            scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50"
+                            "rounded-full hidden sm:flex transition-all",
+                            isGridVisible
+                                ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30"
+                                : "text-slate-400 dark:text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30",
+                            scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50 dark:bg-slate-800/40"
                         )}
+                        onClick={toggleGrid}
                     >
-                        <LayoutGrid className="h-5 w-5" />
+                        {isGridVisible
+                            ? <Grid2x2 className="h-4 w-4" />
+                            : <Grid2x2X className="h-4 w-4" />
+                        }
                     </Button>
 
                     {/* Notification Popover */}
                     <div className={cn(
                         "rounded-full transition-all flex items-center justify-center",
-                        scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50"
+                        scrolled ? "h-9 w-9" : "h-10 w-10 bg-white/50 dark:bg-slate-800/40"
                     )}>
                         <NotificationPopover />
                     </div>

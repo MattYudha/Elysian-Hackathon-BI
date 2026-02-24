@@ -66,13 +66,15 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
             const confirmLeave = window.confirm("Anda memiliki perubahan yang belum disimpan. Yakin ingin pindah?");
             if (confirmLeave) {
                 setFormDirty(false); // Force clean state
-                router.push(href);
+                if (href === 'back') router.back();
+                else router.push(href);
             }
         }
         // If not dirty, Next.js Link handles the rest automatically.
         // For buttons, we still need to push manually if not dirty.
         else if (e.currentTarget.tagName !== 'A') {
-            router.push(href);
+            if (href === 'back') router.back();
+            else router.push(href);
         }
     };
 
@@ -102,7 +104,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                         variant="ghost"
                         size="icon"
                         className="absolute top-4 right-4 z-50 rounded-full md:hidden text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
-                        onClick={(e) => handleNavigation(e, '/dashboard')}
+                        onClick={(e) => handleNavigation(e, 'back')}
                     >
                         <X className="h-5 w-5" />
                     </Button>
@@ -152,7 +154,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                 variant="ghost"
                                 size="icon"
                                 className="h-8 w-8 rounded-md text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                                onClick={(e) => handleNavigation(e, '/dashboard')}
+                                onClick={(e) => handleNavigation(e, 'back')}
                             >
                                 <X className="h-4 w-4" />
                             </Button>

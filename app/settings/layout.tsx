@@ -97,31 +97,37 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
 
             {/* Modal Overlay / Popup */}
             {/* Removed backdrop-blur-[2px] fixed massive GPU performance drop on full screen overlays */}
-            <div className="fixed inset-0 z-[100] bg-slate-900/60 dark:bg-black/80 flex items-center justify-center p-4 sm:p-6 md:p-12 overflow-y-auto">
-                <div className="relative w-full max-w-[960px] mx-auto bg-white dark:bg-[#0B1120] rounded-2xl md:rounded-3xl shadow-2xl border border-slate-200/60 dark:border-slate-800/60 flex flex-col md:flex-row overflow-hidden h-[80vh] min-h-[500px] max-h-[750px] my-auto">
+            <div className="fixed inset-0 z-[100] bg-slate-900/60 dark:bg-black/80 flex items-center justify-center p-0 md:p-4 lg:p-12 overflow-y-auto md:overflow-hidden">
+                <div className="relative w-full h-full md:h-[80vh] md:min-h-[500px] md:max-h-[750px] max-w-[960px] mx-auto bg-white dark:bg-[#0B1120] md:rounded-2xl lg:rounded-3xl shadow-2xl border-0 md:border border-slate-200/60 dark:border-slate-800/60 flex flex-col md:flex-row overflow-hidden my-auto">
 
-                    {/* Mobile Close Button (Absolute Top Right) */}
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        className="absolute top-4 right-4 z-50 rounded-full md:hidden text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
-                        onClick={(e) => handleNavigation(e, 'close')}
-                    >
-                        <X className="h-5 w-5" />
-                    </Button>
+
 
                     {/* Left Sidebar Pane */}
-                    <aside className="w-full md:w-64 lg:w-[280px] border-b md:border-b-0 md:border-r border-slate-200/60 dark:border-slate-800/60 bg-slate-50/50 dark:bg-[#060D18] flex flex-col flex-shrink-0">
+                    <aside className="w-full md:w-64 lg:w-[280px] border-b md:border-b-0 md:border-r border-slate-200/60 dark:border-slate-800/60 bg-slate-50/50 dark:bg-[#060D18] flex flex-col shrink-0 overflow-x-auto md:overflow-x-visible">
                         {/* Sidebar Header Space */}
-                        <div className="h-14 md:h-20" />
+                        <div className="hidden md:block h-14 lg:h-20" />
 
-                        <nav className="flex-1 overflow-y-auto px-3 md:px-4 pb-8 flex flex-col gap-6 scrollbar-hide">
+                        {/* Mobile Header: Title + Close */}
+                        <div className="md:hidden flex items-center justify-between p-4 sticky left-0">
+                            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">Settings</h2>
+                            {/* Mobile Close Button (Inline inside header) */}
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-800"
+                                onClick={(e) => handleNavigation(e, 'close')}
+                            >
+                                <X className="h-5 w-5" />
+                            </Button>
+                        </div>
+
+                        <nav className="flex md:flex-col md:flex-1 md:overflow-y-auto px-4 md:px-0 md:pb-8 gap-4 md:gap-6 scrollbar-hide">
                             {sidebarGroups.map((group) => (
-                                <div key={group.label} className="flex flex-col gap-1">
-                                    <h4 className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 px-3">
+                                <div key={group.label} className="flex md:flex-col gap-2 md:gap-1 shrink-0 pb-4 md:pb-0">
+                                    <h4 className="hidden md:block text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1.5 px-3">
                                         {group.label}
                                     </h4>
-                                    <div className="flex flex-col gap-0.5">
+                                    <div className="flex md:flex-col gap-2 md:gap-0.5">
                                         {group.items.map((item) => {
                                             const isActive = pathname.includes(item.href);
                                             return (
@@ -130,14 +136,14 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                                                     href={item.href}
                                                     onClick={(e) => handleNavigation(e, item.href)}
                                                     className={cn(
-                                                        "flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200",
+                                                        "flex items-center gap-2 md:gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-200 whitespace-nowrap",
                                                         isActive
-                                                            ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white"
-                                                            : "text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200"
+                                                            ? "bg-black/5 dark:bg-white/10 text-slate-900 dark:text-white ring-1 ring-slate-200 dark:ring-slate-700 md:ring-0"
+                                                            : "text-slate-600 dark:text-slate-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-slate-200 border border-transparent"
                                                     )}
                                                 >
-                                                    <item.icon className={cn("h-4 w-4", isActive ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-slate-500")} />
-                                                    {item.title}
+                                                    <item.icon className={cn("h-4 w-4 shrink-0", isActive ? "text-slate-900 dark:text-white" : "text-slate-400 dark:text-slate-500")} />
+                                                    <span className="md:inline">{item.title}</span>
                                                 </Link>
                                             )
                                         })}
@@ -161,7 +167,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
                             </Button>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-6 md:p-10 lg:p-12 scrollbar-hide">
+                        <div className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-10 lg:p-12 scrollbar-hide pb-24 md:pb-12">
                             <div className="max-w-[640px]">
                                 {children}
                             </div>

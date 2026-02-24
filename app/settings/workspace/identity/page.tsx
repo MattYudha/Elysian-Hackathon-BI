@@ -66,7 +66,7 @@ export default function IdentityPage() {
                     <h4 className="font-semibold text-blue-900 dark:text-blue-100">Enterprise Feature</h4>
                     <p className="text-sm text-blue-700/80 dark:text-blue-300/80 mt-1">SAML & SCIM require an Enterprise subscription.</p>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white shrink-0">
+                <Button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white shrink-0 mt-2 sm:mt-0">
                     Upgrade to Enterprise
                 </Button>
             </div>

@@ -120,7 +120,7 @@ export default function ProfilePage() {
 
                     <form onSubmit={handleSubmit(onSubmit)} className="bg-transparent p-0">
                         {/* Compact Avatar Row for Layout Efficiency */}
-                        <div className="flex items-center gap-6 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
+                        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-6 mb-8 pb-8 border-b border-slate-100 dark:border-slate-800">
                             <Avatar className="h-20 w-20 border border-slate-200 dark:border-slate-700">
                                 <AvatarImage src={currentAvatar || ''} className="object-cover" />
                                 <AvatarFallback className="text-xl bg-slate-100 dark:bg-slate-800">
@@ -128,7 +128,7 @@ export default function ProfilePage() {
                                 </AvatarFallback>
                             </Avatar>
                             <div className="space-y-2">
-                                <div className="flex gap-2">
+                                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
                                     <Button
                                         type="button"
                                         variant="outline"
@@ -159,7 +159,7 @@ export default function ProfilePage() {
                         </div>
 
                         <div className="space-y-6 max-w-xl">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
                                     <Input

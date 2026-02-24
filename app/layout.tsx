@@ -4,7 +4,7 @@ import '@/styles/globals.css';
 import { Providers } from '@/components/Providers';
 import { APP_NAME, APP_DESCRIPTION } from '@/lib/config';
 import { GhostModeIndicator } from '@/components/admin/GhostModeIndicator';
-
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space' });
 const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
@@ -29,10 +29,12 @@ export default function RootLayout({
                 />
             </head>
             <body className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans`}>
-                <Providers>
-                    <GhostModeIndicator />
-                    {children}
-                </Providers>
+                <NuqsAdapter>
+                    <Providers>
+                        <GhostModeIndicator />
+                        {children}
+                    </Providers>
+                </NuqsAdapter>
             </body>
         </html>
     );

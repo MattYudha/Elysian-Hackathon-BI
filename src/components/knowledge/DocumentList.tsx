@@ -56,10 +56,10 @@ export function DocumentList({
 
                 return (
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-slate-50 rounded-lg">{icon}</div>
+                        <div className="p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg">{icon}</div>
                         <div className="flex flex-col">
-                            <span className="font-semibold text-slate-800">{row.original.name}</span>
-                            <span className="text-xs text-slate-500 uppercase">{type}</span>
+                            <span className="font-semibold text-slate-800 dark:text-slate-200">{row.original.name}</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400 uppercase">{type}</span>
                         </div>
                     </div>
                 );
@@ -70,10 +70,10 @@ export function DocumentList({
             header: "Status",
             cell: ({ row }) => {
                 const status = row.original.status;
-                if (status === "ready") return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 gap-1"><CheckCircle2 className="w-3 h-3" /> Ready</Badge>;
-                if (status === "indexing") return <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 gap-1"><Loader2 className="w-3 h-3 animate-spin" /> Indexing</Badge>;
-                if (status === "uploading") return <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">Uploading</Badge>;
-                return <Badge variant="destructive" className="bg-red-50 text-red-700 border-red-200 hover:bg-red-50">Failed</Badge>;
+                if (status === "ready") return <Badge variant="outline" className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800 gap-1"><CheckCircle2 className="w-3 h-3" /> Ready</Badge>;
+                if (status === "indexing") return <Badge variant="outline" className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800 gap-1"><Loader2 className="w-3 h-3 animate-spin" /> Indexing</Badge>;
+                if (status === "uploading") return <Badge variant="outline" className="bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700">Uploading</Badge>;
+                return <Badge variant="destructive" className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/30">Failed</Badge>;
             }
         },
         {
@@ -89,7 +89,7 @@ export function DocumentList({
             header: "Last Updated",
             cell: ({ row }) => {
                 const date = new Date(row.getValue("uploadedAt"));
-                return <span className="text-slate-500 text-xs">{date.toLocaleDateString()}</span>;
+                return <span className="text-slate-500 dark:text-slate-400 text-xs">{date.toLocaleDateString()}</span>;
             }
         },
         {
@@ -122,14 +122,14 @@ export function DocumentList({
     };
 
     const getStatusBadge = (status: string) => {
-        if (status === "ready") return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 gap-1"><CheckCircle2 className="w-3 h-3" /> Ready</Badge>;
-        if (status === "indexing" || status === "processing") return <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 gap-1"><Loader2 className="w-3 h-3 animate-spin" /> {status === 'indexing' ? 'Indexing' : 'Processing'}</Badge>;
-        if (status === "queued") return <Badge variant="outline" className="bg-slate-50 text-slate-700 border-slate-200">Queued</Badge>;
-        return <Badge variant="destructive" className="bg-red-50 text-red-700 border-red-200 hover:bg-red-50">Failed</Badge>;
+        if (status === "ready") return <Badge variant="outline" className="bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800 gap-1"><CheckCircle2 className="w-3 h-3" /> Ready</Badge>;
+        if (status === "indexing" || status === "processing") return <Badge variant="outline" className="bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800 gap-1"><Loader2 className="w-3 h-3 animate-spin" /> {status === 'indexing' ? 'Indexing' : 'Processing'}</Badge>;
+        if (status === "queued") return <Badge variant="outline" className="bg-slate-50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700">Queued</Badge>;
+        return <Badge variant="destructive" className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/30">Failed</Badge>;
     };
 
     return (
-        <div className="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="w-full">
             {/* Desktop View: DataTable */}
             <div className="hidden md:block">
                 {isLoading ? (
@@ -145,19 +145,19 @@ export function DocumentList({
             </div>
 
             {/* Mobile View: Card List */}
-            <div className="md:hidden p-4 space-y-4">
+            <div className="md:hidden space-y-4">
                 {data.map((doc) => (
                     <div
                         key={doc.id}
                         onClick={() => onSelectDocument?.(doc)}
-                        className="bg-white border border-slate-100 rounded-lg p-4 shadow-sm active:scale-[0.98] transition-transform"
+                        className="bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 rounded-lg p-4 shadow-sm active:scale-[0.98] transition-transform"
                     >
                         <div className="flex justify-between items-start mb-3">
                             <div className="flex items-center gap-3">
-                                <div className="p-2 bg-slate-50 rounded-lg">{getFileIcon(doc.type)}</div>
+                                <div className="p-2 bg-slate-50 dark:bg-slate-900/50 rounded-lg">{getFileIcon(doc.type)}</div>
                                 <div>
-                                    <h4 className="font-semibold text-slate-900 line-clamp-1">{doc.name}</h4>
-                                    <span className="text-xs text-slate-500 uppercase">{doc.type} • {new Date(doc.uploadedAt).toLocaleDateString()}</span>
+                                    <h4 className="font-semibold text-slate-900 dark:text-slate-100 line-clamp-1">{doc.name}</h4>
+                                    <span className="text-xs text-slate-500 dark:text-slate-400 uppercase">{doc.type} • {new Date(doc.uploadedAt).toLocaleDateString()}</span>
                                 </div>
                             </div>
                             <Button
@@ -170,7 +170,7 @@ export function DocumentList({
                             </Button>
                         </div>
 
-                        <div className="flex items-center justify-between border-t border-slate-50 pt-3 mt-2">
+                        <div className="flex items-center justify-between border-t border-slate-50 dark:border-slate-700/50 pt-3 mt-2">
                             {getStatusBadge(doc.status)}
                             <span className="text-xs font-mono text-slate-400">
                                 {(doc.size / 1024).toFixed(1)} KB

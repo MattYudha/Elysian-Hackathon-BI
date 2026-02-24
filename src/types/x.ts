@@ -47,6 +47,7 @@ export interface PipelineItem {
     progress?: number;
     eta?: string;
     lastUpdated: Date;
+    createdAt?: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     metadata?: Record<string, any>;
 }

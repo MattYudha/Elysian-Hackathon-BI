@@ -27,14 +27,17 @@
     }
 
     .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
-        --card: 222.2 84% 4.9%;
-        --card-foreground: 210 40% 98%;
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
+        /* Deep Ocean / Midnight Blue (#0B1120) */
+        --background: 223 39% 8.6%;
+        /* Slate-300 for regular text to avoid astigmatism glare */
+        --foreground: 213 27% 84%;
+        --card: 223 39% 8.6%;
+        --card-foreground: 213 27% 84%;
+        --popover: 223 39% 8.6%;
+        --popover-foreground: 213 27% 84%;
         --primary: 217.2 91.2% 59.8%;
-        --primary-foreground: 222.2 47.4% 11.2%;
+        /* Slate-50 for high contrast active states */
+        --primary-foreground: 210 40% 98%;
         --secondary: 217.2 32.6% 17.5%;
         --secondary-foreground: 210 40% 98%;
         --muted: 217.2 32.6% 17.5%;
@@ -120,20 +123,17 @@
         background-attachment: fixed;
     }
 
-    /* Glass Utilities */
+    /* Glass Utilities (Light & Dark Responsive) */
     .glass-obsidian {
-        background: rgba(2, 6, 23, 0.6);
-        /* Slate 950 / 60% */
+        @apply bg-white/95 dark:bg-[#0B1120]/75 border-slate-200/60 dark:border-blue-900/30 text-slate-900 dark:text-slate-300 shadow-sm border;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        /* Fainter border */
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease-in-out;
     }
 
     /* High Contrast Data Zone - NO BLUR (Performance Optimization) */
     .glass-obsidian-solid {
-        @apply bg-white dark:bg-slate-900/95 border-slate-200 dark:border-slate-800 backdrop-blur-none text-slate-900 dark:text-slate-200;
+        @apply bg-white dark:bg-[#0B1120] border-slate-200 dark:border-blue-900/30 backdrop-blur-none text-slate-900 dark:text-slate-300 border;
         /* Force shadcn default components inside to inherit dark variables only in dark mode */
         --card: 0 0% 100%;
         --card-foreground: 222.2 84% 4.9%;
@@ -141,8 +141,8 @@
     }
 
     .dark .glass-obsidian-solid {
-        --card: 222 47% 11%;
-        --background: 222 47% 11%;
+        --card: 223 39% 8.6%;
+        --background: 223 39% 8.6%;
     }
 
     .elysian-grid-light {

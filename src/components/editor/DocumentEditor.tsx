@@ -91,7 +91,7 @@ export function DocumentEditor({
         content: currentDocument?.content || initialContent || defaultContent,
         editorProps: {
             attributes: {
-                class: 'prose prose-slate prose-base w-full p-10 focus:outline-none min-h-[800px] dark:prose-invert max-w-none bg-white dark:bg-slate-950 shadow-sm mx-auto my-4 border border-slate-200 dark:border-slate-800',
+                class: 'prose prose-slate prose-base w-full p-10 focus:outline-none min-h-[800px] dark:prose-invert max-w-none bg-white dark:bg-[#0B1120] shadow-sm mx-auto my-4 border border-slate-200 dark:border-blue-900/30',
             },
             handleKeyDown: (_view, _event) => {
                 // This handleKeyDown is intentionally left empty or for specific key events.
@@ -174,8 +174,8 @@ export function DocumentEditor({
         )}>
             {/* PDF/Source View */}
             {!isMobile && pdfUrl && (
-                <Card className="flex-1 bg-muted/30 border-border overflow-hidden flex flex-col">
-                    <div className="p-3 border-b border-border flex justify-between items-center bg-card/50">
+                <Card className="flex-1 bg-slate-50 dark:bg-[#0B1120]/40 border-slate-200 dark:border-blue-900/30 overflow-hidden flex flex-col glass-obsidian">
+                    <div className="p-3 border-b border-slate-200 dark:border-blue-900/30 flex justify-between items-center bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
                         <div className="flex items-center gap-2">
                             <FileText className="h-4 w-4 text-blue-400" />
                             <span className="text-sm font-medium">Source Document</span>
@@ -196,8 +196,8 @@ export function DocumentEditor({
             )}
 
             {/* Editor View */}
-            <Card className="flex-1 border-border flex flex-col bg-card overflow-hidden shadow-sm">
-                <div className="px-4 py-3 border-b border-border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50 dark:bg-slate-900/50">
+            <Card className="flex-1 border-slate-200 dark:border-blue-900/30 flex flex-col bg-white/80 dark:bg-slate-950/95 overflow-hidden shadow-sm backdrop-blur-xl glass-obsidian">
+                <div className="px-4 py-3 border-b border-slate-200 dark:border-blue-900/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-slate-50/50 dark:bg-[#0B1120]/60 backdrop-blur-sm">
                     <div className="flex items-center justify-between w-full sm:w-auto gap-2">
                         <div className="flex items-center gap-2 overflow-hidden">
                             <Badge variant="outline" className="text-xs font-normal bg-white dark:bg-slate-800 shrink-0">
@@ -257,7 +257,7 @@ export function DocumentEditor({
 
                 {/* Editor Area */}
                 <div
-                    className="flex-1 overflow-y-auto bg-white dark:bg-slate-950/50 group relative cursor-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgMUwyMyAxNkwxNCAxOEw5IDMwTDEgMVoiIGZpbGw9IiMxMTE4MjciIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4='),_default]"
+                    className="flex-1 overflow-y-auto bg-white/60 dark:bg-[#0B1120]/80 backdrop-blur-sm group relative cursor-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgMUwyMyAxNkwxNCAxOEw5IDMwTDEgMVoiIGZpbGw9IiMxMTE4MjciIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4='),_default]"
                     onClick={() => editor?.chain().focus().run()}
                 >
                     <EditorContent editor={editor} className="min-h-full" />

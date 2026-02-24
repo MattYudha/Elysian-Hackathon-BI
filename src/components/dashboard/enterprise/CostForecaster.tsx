@@ -21,25 +21,25 @@ export function CostForecaster({ data, isLoading }: CostForecasterProps) {
     const isOverBudget = projected > budgetLimit;
 
     return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="rounded-2xl p-6 glass-obsidian">
             <div className="mb-6 flex items-start justify-between">
                 <div>
-                    <h3 className="text-lg font-semibold text-slate-900">Cost & Billing Intelligence</h3>
-                    <p className="text-sm text-slate-500">Real-time spend forecast vs budget</p>
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">Cost & Billing Intelligence</h3>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">Real-time spend forecast vs budget</p>
 
-                    <div className="mt-4 flex gap-6">
+                    <div className="mt-4 flex flex-col sm:flex-row gap-4 sm:gap-6">
                         <div>
                             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Current Spend</p>
-                            <p className="text-2xl font-bold text-slate-900">${currentSpend.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-slate-900 dark:text-slate-50">${currentSpend.toFixed(2)}</p>
                         </div>
                         <div>
                             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Projected (EOM)</p>
                             <div className="flex items-center gap-2">
-                                <p className={`text-2xl font-bold ${isOverBudget ? 'text-rose-600' : 'text-slate-900'}`}>
+                                <p className={`text-2xl font-bold ${isOverBudget ? 'text-rose-600 dark:text-rose-400' : 'text-slate-900 dark:text-slate-50'}`}>
                                     ${projected.toFixed(2)}
                                 </p>
                                 {isOverBudget && (
-                                    <span className="flex items-center text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full">
+                                    <span className="flex items-center text-xs font-semibold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-500/10 px-2 py-0.5 rounded-full">
                                         <ArrowUpRight className="h-3 w-3 mr-1" />
                                         Over Budget
                                     </span>
@@ -49,7 +49,7 @@ export function CostForecaster({ data, isLoading }: CostForecasterProps) {
                     </div>
                 </div>
 
-                <button className="text-slate-400 hover:text-slate-600 p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <button className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                     <MoreHorizontal className="h-5 w-5" />
                 </button>
             </div>
@@ -63,7 +63,7 @@ export function CostForecaster({ data, isLoading }: CostForecasterProps) {
                                 <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                             </linearGradient>
                         </defs>
-                        <CartesianGrid vertical={false} stroke="#f1f5f9" strokeDasharray="3 3" />
+                        <CartesianGrid vertical={false} strokeOpacity={0.05} strokeDasharray="3 3" />
                         <XAxis
                             dataKey="date"
                             axisLine={false}
@@ -79,9 +79,10 @@ export function CostForecaster({ data, isLoading }: CostForecasterProps) {
                         />
                         <Tooltip
                             contentStyle={{
-                                backgroundColor: 'white',
+                                backgroundColor: 'var(--card)',
                                 borderRadius: '12px',
-                                border: '1px solid #e2e8f0',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                color: 'var(--foreground)',
                                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
                             }}
                             itemStyle={{ fontSize: '12px' }}

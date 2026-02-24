@@ -21,12 +21,12 @@ export default function AppearancePage() {
 
     return (
         <div className="min-h-screen flex justify-center text-[#111318] dark:text-white p-4">
-            <div className="relative w-full max-w-md mx-auto bg-white/60 dark:bg-[#101622]/60 backdrop-blur-xl border border-white/20 dark:border-white/10 flex flex-col min-h-screen shadow-2xl overflow-hidden rounded-3xl">
+            <div className="relative w-full max-w-md mx-auto bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl border border-white/20 dark:border-blue-900/30 flex flex-col min-h-screen shadow-2xl overflow-hidden rounded-3xl glass-obsidian">
 
                 {/* Header */}
-                <div className="sticky top-0 z-50 bg-white/40 dark:bg-[#101622]/40 backdrop-blur-md border-b border-white/20 dark:border-white/5">
+                <div className="sticky top-0 z-50 bg-white/40 dark:bg-slate-900/60 backdrop-blur-md border-b border-white/20 dark:border-blue-900/30">
                     <div className="flex items-center justify-between px-4 py-4">
-                        <Link href="/settings" className="flex items-center justify-center p-2 -ml-2 text-[#111318] dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <Link href="/settings" className="flex items-center justify-center p-2 -ml-2 text-[#111318] dark:text-white rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors">
                             <ChevronLeft className="w-6 h-6" />
                         </Link>
                         <h1 className="text-lg font-bold tracking-tight text-[#111318] dark:text-white">Appearance</h1>
@@ -89,7 +89,7 @@ export default function AppearancePage() {
                             className="group relative cursor-pointer"
                         >
                             <div className={cn(
-                                "relative overflow-hidden rounded-xl border-2 bg-gray-50 dark:bg-gray-800/50 transition-all duration-300 active:scale-[0.98]",
+                                "relative overflow-hidden rounded-xl border-2 bg-gray-50 dark:bg-[#0B1120]/60 transition-all duration-300 active:scale-[0.98]",
                                 theme === 'dark' ? "border-blue-600 dark:border-blue-600" : "border-transparent dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600"
                             )}>
                                 {/* Abstract UI Preview */}
@@ -127,7 +127,7 @@ export default function AppearancePage() {
                             className="group relative cursor-pointer"
                         >
                             <div className={cn(
-                                "relative overflow-hidden rounded-xl border-2 bg-gray-50 dark:bg-gray-800/50 transition-all duration-300 active:scale-[0.98]",
+                                "relative overflow-hidden rounded-xl border-2 bg-gray-50 dark:bg-[#0B1120]/60 transition-all duration-300 active:scale-[0.98]",
                                 theme === 'system' ? "border-blue-600 dark:border-blue-600" : "border-transparent dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600"
                             )}>
                                 {/* Abstract UI Preview */}

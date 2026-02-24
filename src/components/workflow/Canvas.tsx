@@ -9,6 +9,7 @@ import ReactFlow, {
     NodeTypes,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
+import { useTheme } from 'next-themes';
 
 import { useWorkflowStore } from './store';
 
@@ -18,6 +19,7 @@ import { LLMNode } from './nodes/LLMNode';
 import { BranchNode } from './nodes/BranchNode';
 import { TextNode } from './nodes/TextNode';
 import { DocumentNode } from './nodes/DocumentNode';
+import { StartNode } from './nodes/StartNode';
 import { AnimatedEdge } from './edges/AnimatedEdge';
 
 const nodeTypes: NodeTypes = {
@@ -25,6 +27,7 @@ const nodeTypes: NodeTypes = {
     branch: BranchNode,
     text: TextNode,
     document: DocumentNode,
+    start: StartNode,
     // Add more types here
 };
 
@@ -33,6 +36,7 @@ const edgeTypes = {
 };
 
 export function Canvas({ mobileMode = 'edit' }: { mobileMode?: 'view' | 'edit' }) {
+    const { theme } = useTheme();
     const {
         nodes,
         edges,
@@ -66,7 +70,7 @@ export function Canvas({ mobileMode = 'edit' }: { mobileMode?: 'view' | 'edit' }
     };
 
     return (
-        <div className="h-full w-full bg-slate-50">
+        <div className="h-full w-full bg-transparent">
             <ReactFlow
                 nodes={nodes}
                 edges={edges}
@@ -81,7 +85,7 @@ export function Canvas({ mobileMode = 'edit' }: { mobileMode?: 'view' | 'edit' }
                 onNodeClick={onNodeClick}
                 onPaneClick={onPaneClick}
                 fitView
-                className="bg-slate-50"
+                className="bg-transparent"
 
                 // Interaction Controls
                 nodesDraggable={isNodeDraggable}
@@ -91,14 +95,15 @@ export function Canvas({ mobileMode = 'edit' }: { mobileMode?: 'view' | 'edit' }
                 zoomOnPinch={true}
                 minZoom={0.2}
             >
-                <Background color="#94a3b8" gap={20} size={1} />
+                {/* Background Grid - Dark mode n8n style dots */}
+                <Background color={theme === 'dark' ? '#1e293b' : '#94a3b8'} gap={20} size={1} />
 
                 {/* Desktop Controls */}
-                <Controls className="hidden md:flex bg-white border-slate-200 shadow-sm" />
+                <Controls className="hidden md:flex bg-white dark:bg-slate-900 border-slate-200 dark:border-blue-900/30 shadow-sm" />
 
                 {/* Mobile: Hide MiniMap to save space, or make it toggleable (hidden for now as per feedback) */}
                 <MiniMap
-                    className="hidden md:block bg-white border-slate-200 shadow-sm rounded-lg overflow-hidden"
+                    className="hidden md:block bg-white dark:bg-slate-900 border-slate-200 dark:border-blue-900/30 shadow-sm rounded-lg overflow-hidden"
                     maskColor="rgba(241, 245, 249, 0.7)"
                     zoomable
                     pannable
@@ -106,12 +111,12 @@ export function Canvas({ mobileMode = 'edit' }: { mobileMode?: 'view' | 'edit' }
 
                 {nodes.length === 0 && (
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                        <div className="bg-white/80 backdrop-blur-sm border border-slate-200 p-8 rounded-2xl shadow-lg text-center max-w-md mx-4">
+                        <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border border-slate-200 dark:border-blue-900/30 p-8 rounded-2xl shadow-lg text-center max-w-md mx-4 glass-obsidian">
                             <div className="mb-4">
-                                <div className="w-16 h-16 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce">
+                                <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 text-blue-500 dark:text-blue-400 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-bounce">
                                     <MousePointerClick className="w-8 h-8" />
                                 </div>
-                                <h3 className="text-lg font-bold text-slate-800">Your Canvas is Empty</h3>
+                                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-50">Your Canvas is Empty</h3>
                             </div>
                             <p className="text-sm text-slate-500 mb-2 leading-relaxed">
                                 <span className="md:hidden">Tap <strong>+</strong></span>

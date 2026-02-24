@@ -11,15 +11,15 @@ import { Button } from "@/components/ui/button";
 
 export function ChatHeader() {
     return (
-        <div className="sticky top-0 z-10 flex items-center justify-between p-3 px-4 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-b border-transparent">
+        <div className="sticky top-0 z-10 flex items-center justify-between p-3 px-4 bg-white/80 dark:bg-[#0B1120]/80 backdrop-blur-md border-b border-transparent dark:border-blue-900/30">
             <div className="hidden md:block w-1/3" /> {/* Spacer kiri */}
 
             <div className="flex justify-center w-full md:w-1/3">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="gap-2 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-xl px-4 py-2 h-auto">
+                        <Button variant="ghost" className="gap-2 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-slate-900/50 rounded-xl px-4 py-2 h-auto text-slate-800 dark:text-slate-200">
                             <span>Elysian 4.0</span>
-                            <ChevronDown className="w-4 h-4 text-zinc-400" />
+                            <ChevronDown className="w-4 h-4 text-zinc-400 dark:text-slate-500" />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="center" className="w-[200px]">

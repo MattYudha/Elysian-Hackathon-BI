@@ -2,31 +2,48 @@
 
 import React, { useState } from 'react';
 import type { PipelineItem } from '../../types/x';
-import { Clock, CheckCircle, Loader2, XCircle, Trash2 } from 'lucide-react';
+import { Clock, CheckCircle, Loader2, XCircle, Trash2, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { DataTable } from '@/components/ui/data-table/DataTable';
 import { ColumnDef } from '@tanstack/react-table';
 import { Progress } from '@/components/ui/';
 import { Button } from '@/components/ui/';
 import { Badge } from '@/components/ui/';
+import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useWorkflows } from '@/queries/workflow.queries';
 import { useDeleteWorkflow } from '@/mutations/workflow.mutations';
-import { PipelineDetailDrawer } from '@/components/dashboard/PipelineDetailDrawer';
+import { TimelineGantt } from '@/components/dashboard/TimelineGantt';
+import { PipelineBoard } from '@/components/dashboard/PipelineBoard';
+import { ViewOptionsPopover, type ViewOptionsState } from './ViewOptionsPopover';
+import { FilterPopover, type FilterChip } from './FilterPopover';
 
 export interface ActivePipelinesListProps {
     className?: string;
+    onPipelineClick?: (id: string) => void;
 }
 
 export const ActivePipelinesList: React.FC<ActivePipelinesListProps> = ({
     className,
+    onPipelineClick,
 }) => {
     // Connect to Data Layer (TanStack Query)
-    // "UI components must handle loading/error states exclusively via TanStack Query results."
     const { data: pipelines, isLoading } = useWorkflows();
     const deleteMutation = useDeleteWorkflow();
     const { toast } = useToast();
     const [selectedPipeline, setSelectedPipeline] = useState<PipelineItem | null>(null);
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const [viewOptions, setViewOptions] = useState<ViewOptionsState>({
+        viewType: "timeline",
+        tasks: "flat",
+        ordering: "date",
+        showAbsentParent: false,
+        showClosedProjects: true,
+        groupBy: "none",
+        properties: ["status", "assignee", "dueDate"],
+    });
+    const [filterChips, setFilterChips] = useState<FilterChip[]>([]);
 
     const formatTimeAgo = (date: Date | string | undefined): string => {
         if (!date) return '';
@@ -88,7 +105,7 @@ export const ActivePipelinesList: React.FC<ActivePipelinesListProps> = ({
             accessorKey: "name",
             header: "Pipeline Name",
             cell: ({ row }) => (
-                <div className="font-medium">
+                <div className="font-medium whitespace-nowrap min-w-[180px]">
                     {row.original.name}
                     <div className="text-xs text-muted-foreground md:hidden">
                         {row.original.id}
@@ -100,7 +117,7 @@ export const ActivePipelinesList: React.FC<ActivePipelinesListProps> = ({
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 whitespace-nowrap min-w-[120px]">
                     {getStatusIcon(row.original.status)}
                     <Badge variant={getStatusBadgeVariant(row.original.status)} className={cn("uppercase", getStatusBadgeClass(row.original.status))}>
                         {row.original.status}
@@ -134,7 +151,7 @@ export const ActivePipelinesList: React.FC<ActivePipelinesListProps> = ({
             accessorKey: "lastUpdated",
             header: "Last Updated",
             cell: ({ row }) => (
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-muted-foreground whitespace-nowrap min-w-[100px]">
                     {formatTimeAgo(row.original.lastUpdated)}
                 </div>
             ),
@@ -159,23 +176,75 @@ export const ActivePipelinesList: React.FC<ActivePipelinesListProps> = ({
         },
     ];
 
+    // Assuming ganttTasks is derived from pipelines or another source
+    // Filter pipelines first based on text search and status chips
+    const filteredPipelines = pipelines?.filter(p => {
+        const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const statusChips = filterChips.filter(c => c.key === "Status").map(c => c.value.toLowerCase());
+        const matchesStatus = statusChips.length === 0 || statusChips.includes(p.status.toLowerCase());
+        return matchesSearch && matchesStatus;
+    }) || [];
+
+    const ganttTasks = filteredPipelines.map(p => {
+        const start = p.createdAt ? new Date(p.createdAt) : p.lastUpdated ? new Date(p.lastUpdated) : new Date();
+        // Fallback ETA: If no ETA exists, draft/queued pipelines get a default +2 days duration to appear visually on the Gantt
+        const end = p.eta ? new Date(p.eta) : new Date(start.getTime() + 2 * 24 * 60 * 60 * 1000);
+
+        return {
+            id: p.id,
+            name: p.name,
+            startDate: start,
+            endDate: end,
+            progress: p.progress,
+            status: p.status,
+        };
+    });
+
     return (
-        <>
-            <div className={cn("overflow-hidden rounded-xl bg-background", className)}>
-                <DataTable
-                    columns={columns}
-                    data={(pipelines as unknown as PipelineItem[]) || []}
-                    onRowClick={(row) => setSelectedPipeline(row.original)}
-                    isLoading={isLoading}
-                />
+        <div className={cn("flex flex-col space-y-4 w-full", className)}>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center justify-between pb-2 border-b border-blue-100/50 dark:border-blue-900/30">
+                <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-50 tracking-tight">Pipeline Activity</h2>
+                <div className="flex flex-wrap items-center gap-2">
+                    <div className="relative w-full sm:w-auto">
+                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-slate-400 dark:text-slate-500" />
+                        <Input
+                            placeholder="Search pipelines..."
+                            className="h-9 w-full sm:w-[220px] pl-8 text-xs bg-white/60 dark:bg-[#0B1120]/60 border-blue-100/50 dark:border-blue-900/30 rounded-lg shadow-sm focus-visible:ring-blue-500 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <FilterPopover
+                        initialChips={filterChips}
+                        onApply={setFilterChips}
+                        onClear={() => setFilterChips([])}
+                    />
+                    <ViewOptionsPopover
+                        options={viewOptions}
+                        onChange={setViewOptions}
+                        allowedViewTypes={["list", "board", "timeline"]}
+                    />
+                </div>
             </div>
 
-            <PipelineDetailDrawer
-                pipeline={selectedPipeline}
-                open={!!selectedPipeline}
-                onOpenChange={(open) => !open && setSelectedPipeline(null)}
-            />
-        </>
+            <div className="w-full">
+                {viewOptions.viewType === 'timeline' && (
+                    <div className="pipeline-gantt-container animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <TimelineGantt tasks={ganttTasks} onTaskClick={(taskId: string) => onPipelineClick?.(taskId)} />
+                    </div>
+                )}
+                {viewOptions.viewType === 'list' && (
+                    <div className="rounded-xl border border-blue-100/50 dark:border-blue-900/30 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md shadow-sm p-1 animate-in fade-in slide-in-from-bottom-2 duration-500 glass-obsidian">
+                        <DataTable columns={columns} data={filteredPipelines as unknown as PipelineItem[]} />
+                    </div>
+                )}
+                {viewOptions.viewType === 'board' && (
+                    <div className="pipeline-board-container rounded-xl border border-blue-100/50 dark:border-blue-900/30 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md shadow-sm p-4 min-h-[400px] animate-in fade-in slide-in-from-bottom-2 duration-500 glass-obsidian">
+                        <PipelineBoard pipelines={filteredPipelines} onPipelineClick={onPipelineClick} />
+                    </div>
+                )}
+            </div>
+        </div>
     );
 };
 

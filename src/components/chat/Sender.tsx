@@ -90,7 +90,7 @@ export const Sender: React.FC<SenderProps> = ({
     return (
         <div className={cn("w-full relative", className)} id="chat-input-area">
             {/* Pill Container */}
-            <div className="flex items-end gap-3 p-2 pl-2 rounded-[24px] border border-white/40 bg-white/40 backdrop-blur-xl shadow-sm transition-all duration-300 focus-within:bg-white/60 focus-within:shadow-md focus-within:border-blue-200 hover:bg-white/50">
+            <div className="flex items-end gap-3 p-2 pl-2 rounded-[24px] border border-white/40 dark:border-blue-900/30 bg-white/40 dark:bg-[#0B1120]/60 backdrop-blur-xl shadow-sm transition-all duration-300 focus-within:bg-white/60 dark:focus-within:bg-[#0B1120]/80 focus-within:shadow-md focus-within:border-blue-200 dark:focus-within:border-blue-500/50 hover:bg-white/50 dark:hover:bg-[#0B1120]/70">
 
                 {/* Left Actions (Dropdown) */}
                 <div className="flex pb-1.5 pl-1">
@@ -105,29 +105,29 @@ export const Sender: React.FC<SenderProps> = ({
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className="h-8 w-8 flex items-center justify-center rounded-full bg-slate-200/50 text-slate-600 hover:bg-slate-300 hover:text-slate-800 cursor-pointer transition-colors shadow-sm">
+                            <div className="h-8 w-8 flex items-center justify-center rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-600 dark:text-slate-400 hover:bg-slate-300 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer transition-colors shadow-sm">
                                 <Plus className="h-5 w-5" />
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent side="top" align="start" className="w-56 p-2 bg-white/90 backdrop-blur-xl border border-slate-200/50 text-slate-700 rounded-xl shadow-2xl mb-2 ring-1 ring-slate-200/50">
-                            <DropdownMenuItem onClick={triggerFileUpload} className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50 text-slate-600 focus:text-blue-700 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                        <DropdownMenuContent side="top" align="start" className="w-56 p-2 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 text-slate-700 dark:text-slate-200 rounded-xl shadow-2xl mb-2 ring-1 ring-slate-200/50 dark:ring-slate-800/50 glass-obsidian">
+                            <DropdownMenuItem onClick={triggerFileUpload} className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:bg-blue-50 dark:focus:bg-blue-900/20 text-slate-600 dark:text-slate-300 focus:text-blue-700 dark:focus:text-blue-400 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 <FileUp className="h-4 w-4" />
                                 <span>Tambah foto & file</span>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50 text-slate-600 focus:text-blue-700 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:bg-blue-50 dark:focus:bg-blue-900/20 text-slate-600 dark:text-slate-300 focus:text-blue-700 dark:focus:text-blue-400 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 <ImageIcon className="h-4 w-4" />
                                 <span>Buat gambar</span>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50 text-slate-600 focus:text-blue-700 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:bg-blue-50 dark:focus:bg-blue-900/20 text-slate-600 dark:text-slate-300 focus:text-blue-700 dark:focus:text-blue-400 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 <Globe className="h-4 w-4" />
                                 <span>Riset mendalam</span>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50 text-slate-600 focus:text-blue-700 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:bg-blue-50 dark:focus:bg-blue-900/20 text-slate-600 dark:text-slate-300 focus:text-blue-700 dark:focus:text-blue-400 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 <Bot className="h-4 w-4" />
                                 <span>Mode agen</span>
                             </DropdownMenuItem>
-                            <DropdownMenuSeparator className="bg-slate-100 my-1" />
-                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50 text-slate-600 focus:text-blue-700 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+                            <DropdownMenuSeparator className="bg-slate-100 dark:bg-slate-800 my-1" />
+                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 focus:bg-blue-50 dark:focus:bg-blue-900/20 text-slate-600 dark:text-slate-300 focus:text-blue-700 dark:focus:text-blue-400 gap-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
                                 <MoreHorizontal className="h-4 w-4" />
                                 <span>Lainnya</span>
                             </DropdownMenuItem>
@@ -144,7 +144,7 @@ export const Sender: React.FC<SenderProps> = ({
                         onKeyDown={handleKeyPress}
                         placeholder={placeholder}
                         disabled={disabled}
-                        className="w-full min-h-[24px] max-h-32 resize-none border-0 focus-visible:ring-0 p-0 bg-transparent shadow-none text-slate-700 placeholder:text-slate-400 leading-relaxed custom-scrollbar"
+                        className="w-full min-h-[24px] max-h-32 resize-none border-0 focus-visible:ring-0 p-0 bg-transparent shadow-none text-slate-700 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500 leading-relaxed custom-scrollbar"
                         rows={1}
                         style={{ height: 'auto', overflow: 'hidden' }}
                         onInput={(e) => {
@@ -158,8 +158,8 @@ export const Sender: React.FC<SenderProps> = ({
                 {/* Right Actions (Voice & Send) */}
                 <div className="flex items-center gap-1.5 pb-1.5 pr-1">
                     {/* Command Hint (Visual only for now) */}
-                    <div className="hidden md:flex h-6 items-center px-1.5 rounded border border-slate-200 bg-white/50 mx-1">
-                        <span className="text-[10px] font-mono text-slate-400">⌘ /</span>
+                    <div className="hidden md:flex h-6 items-center px-1.5 rounded border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-800/50 mx-1">
+                        <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500">⌘ /</span>
                     </div>
 
                     {onVoice && (
@@ -169,7 +169,7 @@ export const Sender: React.FC<SenderProps> = ({
                             size="icon"
                             onClick={onVoice}
                             disabled={disabled}
-                            className="h-8 w-8 rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50"
+                            className="h-8 w-8 rounded-full text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                         >
                             <Mic className="h-4 w-4" />
                         </Button>

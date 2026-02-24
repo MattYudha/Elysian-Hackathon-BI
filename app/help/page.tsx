@@ -9,7 +9,7 @@ import Link from 'next/link';
 
 export default function HelpPage() {
     return (
-        <div className="flex min-h-screen w-full bg-slate-50">
+        <div className="flex min-h-screen w-full bg-slate-50 dark:bg-[#0B1120]">
             {/* Sticky Sidebar */}
             <div className="hidden md:block sticky top-0 h-screen flex-none z-30">
                 <Sidebar />
@@ -41,21 +41,13 @@ export default function HelpPage() {
                     
                     I'll use Sticky wrapper with a slight gradient or just transparent, allowing blue to be seen.
                  */}
-                <div className="sticky top-0 z-40 w-full backdrop-blur-none transition-all duration-300">
-                    {/* For Help Page, the header is blue. Sticky navbar might look weird if it turns white while still on blue background.
-                         I'll keep it simple: Sticky, Transparent.
-                         Or actually, let the blue header scrol away? 
-                         User said "navbar nya beda".
-                         Let's just put the standard navbar there.
-                      */}
-                    <div className="absolute inset-0 bg-white/0 backdrop-blur-none" /> {/* Placeholder for logic if needed */}
-                    <DashboardNavbar staticMode={true} />
-                </div>
+                {/* Floating Navbar */}
+                <DashboardNavbar />
 
-                <div className="flex-1">
+                <div id="main-scroll-container" className="flex-1 overflow-y-auto">
                     {/* Header Section with Rocket & Search */}
-                    {/* Added negative margin top to pull blue header UNDER the transparent navbar */}
-                    <div className="bg-[#1ca0e3] relative overflow-hidden -mt-16 pt-24 pb-16">
+                    {/* Floating navbar sits over this now, so we add pt-24 to content to clear it */}
+                    <div className="bg-[#1ca0e3] dark:bg-blue-900/80 relative overflow-hidden pt-24 pb-16 border-b border-transparent dark:border-blue-800/50">
 
                         {/* Background Elements (Clouds/Rocket) */}
                         <div className="absolute inset-0 pointer-events-none">
@@ -88,7 +80,7 @@ export default function HelpPage() {
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-blue-500 transition-colors z-20" />
                                 <Input
                                     placeholder="Cari artikel bantuan, topik, atau panduan..."
-                                    className="w-full pl-12 h-14 rounded-full border-0 shadow-lg shadow-blue-900/10 focus-visible:ring-0 text-base py-3"
+                                    className="w-full pl-12 h-14 rounded-full border-0 shadow-lg shadow-blue-900/10 dark:shadow-black/20 dark:bg-slate-900/80 dark:text-slate-100 focus-visible:ring-0 text-base py-3"
                                 />
                             </div>
                         </div>
@@ -99,7 +91,7 @@ export default function HelpPage() {
 
                         {/* Promoted Articles Section */}
                         <div className="mb-12">
-                            <h2 className="text-xl font-bold text-slate-800 mb-6 border-b pb-2">Artikel yang dipromosikan</h2>
+                            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6 border-b border-slate-200 dark:border-slate-800 pb-2">Artikel yang dipromosikan</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {[
                                     "Pembayaran Internasional PaperXB Melalui Website",
@@ -119,7 +111,7 @@ export default function HelpPage() {
                                     "Langkah awal untuk menggunakan Paper.id"
                                 ].map((item, idx) => (
                                     <Link href="#" key={idx} className="block group">
-                                        <p className="text-sm text-slate-600 hover:text-blue-600 hover:underline transition-colors line-clamp-2">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:underline transition-colors line-clamp-2">
                                             {item}
                                         </p>
                                     </Link>
@@ -129,7 +121,7 @@ export default function HelpPage() {
 
                         {/* Recent Activity Section */}
                         <div>
-                            <h2 className="text-xl font-bold text-slate-800 mb-6 text-center">Aktivitas terbaru</h2>
+                            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-6 text-center">Aktivitas terbaru</h2>
                             <div className="space-y-6 max-w-3xl mx-auto">
                                 {[
                                     { cat: "Pembayaran ke Cina", title: "Tujuan Pembayaran ke Alipay China Melalui PaperXB", time: "1 bulan yang lalu" },
@@ -138,13 +130,13 @@ export default function HelpPage() {
                                     { cat: "Panduan Web", title: "Cara Menambah Kategori Unit Produk (Fifo v.2)", time: "1 bulan yang lalu" },
                                     { cat: "Panduan", title: "Pembayaran Internasional PaperXB Melalui Aplikasi Mobile", time: "2 bulan yang lalu" },
                                 ].map((activity, idx) => (
-                                    <div key={idx} className="border-b border-slate-100 pb-4 last:border-0">
-                                        <p className="text-xs font-bold text-slate-500 mb-1">{activity.cat}</p>
+                                    <div key={idx} className="border-b border-slate-100 dark:border-slate-800 pb-4 last:border-0">
+                                        <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">{activity.cat}</p>
                                         <div className="flex justify-between items-start gap-4">
-                                            <Link href="#" className="font-medium text-blue-600 hover:underline text-sm">
+                                            <Link href="#" className="font-medium text-blue-600 dark:text-blue-400 hover:underline text-sm">
                                                 {activity.title}
                                             </Link>
-                                            <div className="flex items-center gap-1 text-xs text-slate-400 whitespace-nowrap">
+                                            <div className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 whitespace-nowrap">
                                                 <span>Artikel dibuat {activity.time}</span>
                                                 <MessageCircle className="h-3 w-3 ml-1" />
                                                 <span>0</span>
@@ -153,23 +145,23 @@ export default function HelpPage() {
                                     </div>
                                 ))}
                                 <div className="text-center pt-2">
-                                    <Link href="#" className="text-sm text-blue-500 hover:underline">Lihat lebih banyak</Link>
+                                    <Link href="#" className="text-sm text-blue-500 dark:text-blue-400 hover:underline">Lihat lebih banyak</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     {/* Footer Section - Matches Reference */}
-                    <footer className="bg-white border-t border-slate-200 py-12 px-6">
-                        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10 text-sm text-slate-500">
+                    <footer className="bg-white dark:bg-[#0B1120] border-t border-slate-200 dark:border-blue-900/30 py-12 px-6">
+                        <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10 text-sm text-slate-500 dark:text-slate-400">
                             <div className="md:w-1/3">
-                                <h3 className="font-bold text-slate-700 mb-4 text-base">Elysian Support & Help</h3>
+                                <h3 className="font-bold text-slate-700 dark:text-slate-200 mb-4 text-base">Elysian Support & Help</h3>
                                 <p className="text-xs leading-relaxed">
                                     Platform intelligence bisnis terpadu untuk efisiensi operasional Anda.
                                 </p>
                             </div>
                             <div className="flex-1 space-y-3">
-                                <h3 className="font-bold text-slate-700 text-base mb-2">Contact Info</h3>
+                                <h3 className="font-bold text-slate-700 dark:text-slate-200 text-base mb-2">Contact Info</h3>
 
                                 <div className="flex items-start gap-3">
                                     <Phone className="h-4 w-4 text-slate-400 mt-0.5" />
@@ -185,12 +177,12 @@ export default function HelpPage() {
                                 </div>
 
                                 <div className="flex items-start gap-3 mt-4">
-                                    <MapPin className="h-4 w-4 text-slate-400 mt-0.5" />
+                                    <MapPin className="h-4 w-4 text-slate-400 dark:text-slate-500 mt-0.5" />
                                     <div>
-                                        <p className="font-medium">Headquarter</p>
+                                        <p className="font-medium dark:text-slate-300">Headquarter</p>
                                         <p className="text-xs max-w-sm mb-2">Jl. Perjuangan No.22, RT.11/RW.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530</p>
 
-                                        <p className="font-medium">Branch Office</p>
+                                        <p className="font-medium dark:text-slate-300">Branch Office</p>
                                         <p className="text-xs max-w-sm">Jl. Sunter Garden Raya No.5D, RT.06/RW.12, Sunter Agung, Kec. Tj. Priok, Kota Jakarta Utara, Daerah Khusus Ibukota Jakarta 14350</p>
                                     </div>
                                 </div>

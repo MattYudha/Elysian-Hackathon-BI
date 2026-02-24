@@ -37,7 +37,7 @@ export function ChatInput({ value, onChange, onSend, disabled, placeholder }: Ch
                 onChange={(e) => onChange(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={placeholder || "Type a message..."}
-                className="min-h-[50px] max-h-[200px] resize-none pr-12 bg-background/50 focus-visible:ring-1"
+                className="min-h-[50px] max-h-[200px] resize-none pr-12 bg-background/50 dark:bg-[#0B1120]/50 dark:border-blue-900/50 focus-visible:ring-1 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 disabled={disabled}
                 rows={1}
             />

@@ -59,8 +59,8 @@ export default function SecurityPage() {
                     </div>
 
                     {/* Password Card */}
-                    <div className="bg-white dark:bg-slate-900/50 p-6 md:p-8 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-                        <div className="flex items-center gap-2 pb-6 border-b border-slate-100 dark:border-slate-800 mb-6">
+                    <div className="bg-white dark:bg-[#0B1120]/60 p-6 md:p-8 border border-slate-200 dark:border-blue-900/30 rounded-2xl shadow-sm glass-obsidian">
+                        <div className="flex items-center gap-2 pb-6 border-b border-slate-100 dark:border-blue-900/30 mb-6">
                             <Key className="w-5 h-5 text-blue-500" />
                             <h3 className="text-sm font-bold text-slate-900 dark:text-white">Password Configuration</h3>
                         </div>
@@ -73,7 +73,7 @@ export default function SecurityPage() {
                                     type="password"
                                     value={passwords.current}
                                     onChange={(e) => handleChange('current', e.target.value)}
-                                    className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg"
+                                    className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg"
                                     placeholder="Enter current password"
                                 />
                             </div>
@@ -86,7 +86,7 @@ export default function SecurityPage() {
                                         type="password"
                                         value={passwords.new}
                                         onChange={(e) => handleChange('new', e.target.value)}
-                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg"
+                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg"
                                         placeholder="Min. 8 chars"
                                     />
                                 </div>
@@ -97,7 +97,7 @@ export default function SecurityPage() {
                                         type="password"
                                         value={passwords.confirm}
                                         onChange={(e) => handleChange('confirm', e.target.value)}
-                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-lg"
+                                        className="h-10 bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-blue-900/50 rounded-lg"
                                         placeholder="Re-enter"
                                     />
                                 </div>
@@ -112,7 +112,7 @@ export default function SecurityPage() {
                     </div>
 
                     {/* 2FA Card */}
-                    <div className="p-6 md:p-8 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/20 rounded-2xl flex items-start gap-5">
+                    <div className="p-6 md:p-8 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-2xl flex items-start gap-5 glass-obsidian">
                         <div className="p-3 bg-blue-100 dark:bg-blue-800 rounded-xl text-blue-600 dark:text-blue-300 flex-shrink-0">
                             <Shield className="w-6 h-6" />
                         </div>
@@ -135,7 +135,7 @@ export default function SecurityPage() {
                 <div className="w-full lg:w-[320px] flex-shrink-0 space-y-6">
                     <div className="sticky top-6 space-y-6">
                         {/* Security Score Widget */}
-                        <div className="bg-white dark:bg-slate-900/50 p-6 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm text-center">
+                        <div className="bg-white dark:bg-[#0B1120]/60 p-6 border border-slate-200 dark:border-blue-900/30 rounded-2xl shadow-sm text-center glass-obsidian">
                             <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-6">Security Health</h3>
 
                             {/* Ring Representation */}
@@ -150,7 +150,7 @@ export default function SecurityPage() {
                                 </div>
                             </div>
 
-                            <div className="text-xs text-left bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-100 dark:border-slate-800/50">
+                            <div className="text-xs text-left bg-slate-50 dark:bg-slate-800/30 p-3 rounded-lg border border-slate-100 dark:border-blue-900/30">
                                 <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">Recommended Action:</p>
                                 <p className="text-slate-500 flex items-center gap-1">
                                     <span className="text-blue-500">•</span> Add a recovery email
@@ -159,7 +159,7 @@ export default function SecurityPage() {
                         </div>
 
                         {/* Login History Mini */}
-                        <div className="bg-transparent border-t border-slate-200 dark:border-slate-800 pt-6">
+                        <div className="bg-transparent border-t border-slate-200 dark:border-blue-900/30 pt-6">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Sessions</h3>
                                 <button onClick={logout} className="text-[10px] font-bold text-red-500 hover:text-red-600">REVOKE ALL</button>

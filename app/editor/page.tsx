@@ -63,8 +63,8 @@ export default function DocumentEditorPage() {
                         </div>
 
                         <div className="max-w-md space-y-4">
-                            <h1 className="text-2xl font-bold text-slate-900">Editor Dokumen Pintar</h1>
-                            <p className="text-slate-500">
+                            <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">Editor Dokumen Pintar</h1>
+                            <p className="text-slate-500 dark:text-slate-400">
                                 Edit, kolaborasi, dan kelola dokumen Anda dengan bantuan AI. Perbaiki format dan konten secara otomatis.
                             </p>
                             <Button

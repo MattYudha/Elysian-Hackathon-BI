@@ -29,16 +29,16 @@ export function DocumentNode({ id, data, selected }: NodeProps<DocumentNodeData>
                 className="!bg-orange-300 group-hover:!bg-orange-500 w-2 h-2 transition-all rounded-full"
             />
 
-            <Card className={`w-[280px] shadow-sm transition-all duration-300 ${selected ? 'border-orange-400 ring-1 ring-orange-400 shadow-lg' : 'hover:border-orange-300 hover:shadow-md'} bg-white border-slate-200`}>
+            <Card className={`w-[280px] shadow-sm transition-all duration-300 ${selected ? 'border-orange-400 dark:border-orange-500 ring-1 ring-orange-400 dark:ring-orange-500 shadow-lg' : 'hover:border-orange-300 dark:hover:border-orange-700 hover:shadow-md'} bg-white/90 dark:bg-slate-900/40 border-slate-200 dark:border-blue-900/30 backdrop-blur-md glass-obsidian`}>
 
                 {/* Enterprise Header */}
-                <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 rounded-t-lg flex items-center justify-between">
+                <div className="px-4 py-3 bg-slate-50 dark:bg-[#0B1120]/60 border-b border-slate-100 dark:border-blue-900/30 rounded-t-lg flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded bg-white border border-slate-200 text-orange-600 flex items-center justify-center shadow-sm">
+                        <div className="h-8 w-8 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-orange-600 dark:text-orange-400 flex items-center justify-center shadow-sm">
                             <BookOpen className="h-4 w-4" />
                         </div>
                         <div>
-                            <h3 className="text-sm font-bold text-slate-800 leading-none">
+                            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-50 leading-none">
                                 {data.label || 'Knowledge Source'}
                             </h3>
                             <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mt-1">
@@ -51,14 +51,14 @@ export function DocumentNode({ id, data, selected }: NodeProps<DocumentNodeData>
                 <CardContent className="p-4 space-y-3">
                     {/* Metadata Section */}
                     {data.filename ? (
-                        <div className="bg-orange-50/50 p-2.5 rounded border border-orange-100 flex items-start gap-3">
-                            <div className="mt-0.5 text-orange-400">
+                        <div className="bg-orange-50/50 dark:bg-orange-500/10 p-2.5 rounded border border-orange-100 dark:border-orange-500/20 flex items-start gap-3">
+                            <div className="mt-0.5 text-orange-400 dark:text-orange-500">
                                 {data.sourceType === 'url' ? <LinkIcon className="h-3.5 w-3.5" /> :
                                     data.sourceType === 'knowledge_base' ? <Database className="h-3.5 w-3.5" /> :
                                         <FileText className="h-3.5 w-3.5" />}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="text-xs font-semibold text-slate-700 truncate" title={data.filename}>
+                                <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 truncate" title={data.filename}>
                                     {data.filename}
                                 </p>
                                 <p className="text-[10px] text-slate-500 flex gap-2 mt-0.5">
@@ -69,7 +69,7 @@ export function DocumentNode({ id, data, selected }: NodeProps<DocumentNodeData>
                             </div>
                         </div>
                     ) : (
-                        <div className="text-xs text-slate-400 italic text-center py-3 border border-dashed border-slate-200 rounded-md bg-slate-50/50">
+                        <div className="text-xs text-slate-400 dark:text-slate-500 italic text-center py-3 border border-dashed border-slate-200 dark:border-blue-900/30 rounded-md bg-slate-50/50 dark:bg-slate-800/30">
                             No source linked
                         </div>
                     )}

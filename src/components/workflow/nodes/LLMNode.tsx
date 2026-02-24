@@ -50,16 +50,16 @@ export function LLMNode({ id, data, selected }: NodeProps<LLMNodeData>) {
                 className="!bg-slate-400 group-hover:!bg-slate-600 w-2 h-2 transition-all rounded-full"
             />
 
-            <Card className={`w-[340px] shadow-sm transition-all duration-300 ${selected ? 'border-slate-500 ring-1 ring-slate-500 shadow-xl' : 'hover:border-slate-400 hover:shadow-md'} bg-white border-slate-200`}>
+            <Card className={`w-[340px] shadow-sm transition-all duration-300 ${selected ? 'border-slate-500 dark:border-blue-500 ring-1 ring-slate-500 dark:ring-blue-500 shadow-xl' : 'hover:border-slate-400 dark:hover:border-blue-700 hover:shadow-md'} bg-white/90 dark:bg-slate-900/40 border-slate-200 dark:border-blue-900/30 backdrop-blur-md glass-obsidian`}>
 
                 {/* Enterprise Header */}
-                <div className="px-4 py-3 bg-slate-50 border-b border-slate-100 rounded-t-lg flex items-center justify-between">
+                <div className="px-4 py-3 bg-slate-50 dark:bg-[#0B1120]/60 border-b border-slate-100 dark:border-blue-900/30 rounded-t-lg flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <div className="h-8 w-8 rounded bg-white border border-slate-200 text-slate-600 flex items-center justify-center shadow-sm">
+                        <div className="h-8 w-8 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-sm">
                             <Bot className="h-4 w-4" />
                         </div>
                         <div>
-                            <h3 className="text-sm font-bold text-slate-800 leading-none">
+                            <h3 className="text-sm font-bold text-slate-800 dark:text-slate-50 leading-none">
                                 {data.label || 'Reasoning Engine'}
                             </h3>
                             <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mt-1">
@@ -78,12 +78,12 @@ export function LLMNode({ id, data, selected }: NodeProps<LLMNodeData>) {
                     {/* Primary Control: Presets (Hiding Complexity) */}
                     <div className="space-y-2 nodrag">
                         <Label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Output Style</Label>
-                        <div className="grid grid-cols-3 gap-1 bg-slate-50 p-1 rounded-md border border-slate-100">
+                        <div className="grid grid-cols-3 gap-1 bg-slate-50 dark:bg-slate-800/50 p-1 rounded-md border border-slate-100 dark:border-blue-900/30">
                             {(['precise', 'balanced', 'creative'] as const).map((p) => (
                                 <button
                                     key={p}
                                     onClick={() => handlePresetChange(p)}
-                                    className={`text-[10px] font-medium py-1.5 px-2 rounded capitalize transition-all ${currentPreset === p ? 'bg-white text-slate-800 shadow-sm border border-slate-200' : 'text-slate-400 hover:text-slate-600'}`}
+                                    className={`text-[10px] font-medium py-1.5 px-2 rounded capitalize transition-all ${currentPreset === p ? 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-50 shadow-sm border border-slate-200 dark:border-blue-900/50' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}
                                 >
                                     {p}
                                 </button>
@@ -94,9 +94,9 @@ export function LLMNode({ id, data, selected }: NodeProps<LLMNodeData>) {
                     {/* Instruction Preview */}
                     <div className="space-y-2">
                         <Label className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Instruction</Label>
-                        <div className="bg-slate-50 p-3 rounded-md border border-slate-100/50 min-h-[60px]">
-                            <p className="text-[11px] text-slate-600 font-mono leading-relaxed line-clamp-3">
-                                {data.systemPrompt ? `"${data.systemPrompt}"` : <span className="text-slate-400 italic">Define behavior policy...</span>}
+                        <div className="bg-slate-50 dark:bg-slate-800/30 p-3 rounded-md border border-slate-100/50 dark:border-blue-900/20 min-h-[60px]">
+                            <p className="text-[11px] text-slate-600 dark:text-slate-300 font-mono leading-relaxed line-clamp-3">
+                                {data.systemPrompt ? `"${data.systemPrompt}"` : <span className="text-slate-400 dark:text-slate-500 italic">Define behavior policy...</span>}
                             </p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@ export function LLMNode({ id, data, selected }: NodeProps<LLMNodeData>) {
                                         Model Architecture
                                     </Label>
                                     <Select value={data.model || 'gpt-4o'} onValueChange={handleModelChange}>
-                                        <SelectTrigger className="h-7 text-[11px] bg-white border-slate-200">
+                                        <SelectTrigger className="h-7 text-[11px] bg-white dark:bg-slate-900 border-slate-200 dark:border-blue-900/50">
                                             <SelectValue />
                                         </SelectTrigger>
                                         <SelectContent>

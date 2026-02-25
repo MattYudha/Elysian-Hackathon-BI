@@ -88,11 +88,10 @@ export function MobileSidebar() {
 
                         {/* WIDGETS SECTION (Restored & Styled) */}
                         <div className="space-y-2 pt-1">
-                            {/* Admin Panel (Only for Admin) */}
                             {user?.role === 'admin' && (
                                 <Link href="/admin" onClick={() => setMobileOpen(false)} className='block'>
-                                    <Button variant="outline" className="w-full justify-start gap-2 bg-gradient-to-r from-sky-50 to-white/60 hover:from-sky-100 hover:to-sky-50 border-sky-200 text-sky-700 h-9 rounded-lg text-sm font-semibold shadow-sm">
-                                        <Shield className="h-4 w-4 text-sky-500" />
+                                    <Button variant="outline" className="w-full justify-start gap-2 bg-gradient-to-r from-sky-50 to-white/60 dark:from-sky-950/40 dark:to-slate-900/40 hover:from-sky-100 dark:hover:from-sky-900/60 hover:to-sky-50 dark:hover:to-slate-800/60 border-sky-200 dark:border-sky-800/50 text-sky-700 dark:text-sky-300 h-9 rounded-lg text-sm font-semibold shadow-sm transition-all">
+                                        <Shield className="h-4 w-4 text-sky-500 dark:text-sky-400" />
                                         Admin Panel
                                     </Button>
                                 </Link>
@@ -100,7 +99,7 @@ export function MobileSidebar() {
 
                             {/* Help Button */}
                             <Link href="/help" onClick={() => setMobileOpen(false)} className='block'>
-                                <Button variant="outline" className="w-full justify-start gap-2 bg-blue-50/50 hover:bg-blue-100 border-blue-200 text-blue-700 h-9 rounded-lg text-sm font-semibold shadow-sm">
+                                <Button variant="outline" className="w-full justify-start gap-2 bg-blue-50/50 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 border-blue-200 dark:border-blue-800/50 text-blue-700 dark:text-blue-300 h-9 rounded-lg text-sm font-semibold shadow-sm transition-all">
                                     <HelpCircle className="h-4 w-4" />
                                     Bantuan
                                 </Button>
@@ -135,7 +134,7 @@ export function MobileSidebar() {
                             </div>
 
                             <div className="mt-3">
-                                <Button variant="outline" size="sm" className="w-full h-8 text-xs border-slate-200 bg-white/50 hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition-all">
+                                <Button variant="outline" size="sm" className="w-full h-8 text-xs border-slate-200 dark:border-slate-700/50 bg-white/50 dark:bg-slate-800/50 hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 hover:border-red-200 dark:hover:border-red-800/50 text-slate-700 dark:text-slate-300 transition-all">
                                     <LogOut className="w-3.5 h-3.5 mr-1.5" />
                                     Logout
                                 </Button>

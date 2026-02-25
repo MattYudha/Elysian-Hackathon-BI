@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export type AgentPayloadType = 'diff' | 'json' | 'markdown';
-export type ActionType = 'DATA_MUTATION' | 'SECURITY' | 'BILLING' | 'OPS_ALERT' | 'REPORT';
+export type ActionType = 'DATA_MUTATION' | 'SECURITY' | 'BILLING' | 'OPS_ALERT' | 'REPORT' | 'IDENTITY';
 export type ActionSeverity = 'critical' | 'high' | 'medium' | 'low';
 export type ActionStatus = 'pending' | 'approving' | 'rejecting' | 'approved' | 'rejected' | 'executing' | 'executed' | 'failed' | 'expired';
 

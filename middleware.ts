@@ -26,7 +26,7 @@ export function middleware(request: NextRequest) {
             httpOnly: false, // Client JS needs to read this for switchTenant()
             sameSite: 'lax',
             // secure: true in production (handled by Next.js in HTTPS)
-            maxAge: 60 * 60 * 24 * 365, // 1 year
+            maxAge: 60 * 60 * 24 * 7, // 1 year
         });
         return response;
     }

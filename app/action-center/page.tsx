@@ -1,5 +1,6 @@
 import { ActionCenterClient } from '@/components/action-center/ActionCenterClient';
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
     title: 'Action Center | Elysian Rebirth',
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function ActionCenterPage() {
-    return <ActionCenterClient />;
+    return (
+        <Suspense fallback={<div className="flex h-full items-center justify-center p-8 text-slate-500">Loading Action Center...</div>}>
+            <ActionCenterClient />
+        </Suspense>
+    );
 }

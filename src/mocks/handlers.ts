@@ -1,6 +1,38 @@
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
+    // Strict Network-Level Auth Mocks (Zero Production Pollution)
+    http.get('*/api/v1/auth/me', ({ cookies }) => {
+        // MSW strictly checks if the network cookie is present, validating HttpOnly behavior
+        const token = cookies.auth_token || cookies.session;
+        if (!token) {
+            return new HttpResponse(null, { status: 401 });
+        }
+        return HttpResponse.json({
+            status: 'success',
+            data: {
+                user: {
+                    name: 'Elysian Admin',
+                    email: 'admin@elysian.com',
+                    avatar: null,
+                }
+            }
+        });
+    }),
+
+    http.post('*/api/v1/auth/login', () => {
+        return HttpResponse.json({
+            status: 'success',
+            data: { message: 'SSO Login successful' }
+        }, {
+            headers: {
+                // Simulating the Backend's Strict Set-Cookie execution natively
+                // Note: MSW resolves this at the Service Worker level in the browser.
+                'Set-Cookie': 'auth_token=mock_jwt_token_123; HttpOnly; Path=/; SameSite=Lax',
+            }
+        });
+    }),
+
     // Dashboard Stats Mock
     http.get('*/api/dashboard/stats', () => {
         return HttpResponse.json({

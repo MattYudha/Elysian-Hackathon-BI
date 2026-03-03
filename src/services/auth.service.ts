@@ -42,12 +42,7 @@ export const authService = {
      */
     async login(data: LoginDTO): Promise<AuthResponse> {
         const response = await http.post<AuthResponse>('/api/v1/auth/login', data);
-
-        // Save token to localStorage immediately upon success
-        if (response.data && response.data.access_token) {
-            localStorage.setItem('auth_token', response.data.access_token);
-        }
-
+        // Authentication state is entirely managed by HttpOnly cookies established by the backend
         return response;
     },
 
@@ -58,10 +53,9 @@ export const authService = {
         try {
             await http.post('/api/v1/auth/logout');
         } catch (error) {
-            console.warn('Logout API failed, cleaning up local storage anyway', error);
-        } finally {
-            localStorage.removeItem('auth_token');
+            console.warn('Logout API failed', error);
         }
+        // State cleanup relies entirely on HTTP interceptors and Zustand memory clear
     },
 
     /**

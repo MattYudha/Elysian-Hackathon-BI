@@ -14,7 +14,6 @@
 'use client';
 
 import { createContext, useContext, useMemo, useCallback, type ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
 import { useTenants } from '@/queries/tenant.queries';
 import type { Tenant } from '@/services/tenant.service';
 
@@ -46,7 +45,6 @@ function setTenantCookie(tenantId: string) {
 }
 
 export function TenantProvider({ children }: { children: ReactNode }) {
-  const router = useRouter();
   const { data: availableTenants = [], isLoading } = useTenants();
 
   // Derive current tenant from cookie + React Query data
@@ -58,9 +56,9 @@ export function TenantProvider({ children }: { children: ReactNode }) {
 
   const switchTenant = useCallback((tenantId: string) => {
     setTenantCookie(tenantId);
-    // Trigger server re-render so Server Components pick up new cookie
-    router.refresh();
-  }, [router]);
+    // Hard-Navigation to prevent cross-tenant state leakage (React Query, Websockets)
+    window.location.assign('/dashboard');
+  }, []);
 
   return (
     <TenantContext.Provider value={{

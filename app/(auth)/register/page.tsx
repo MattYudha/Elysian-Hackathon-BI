@@ -19,6 +19,7 @@ import { checkPasswordStrength } from '@/lib/password-strength';
 import { APP_NAME } from '@/lib/config';
 
 import { ElysianTextLogo } from '@/components/ui/elysian-logo';
+import { SocialAuth } from '@/components/auth/social-auth';
 
 // --- LOGIC AREA (TIDAK BERUBAH SAMA SEKALI) ---
 const formSchema = z.object({
@@ -140,6 +141,14 @@ export default function RegisterPage() {
 
                     {/* 2. The Form Card - Clean & Floating */}
                     <div className="w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/60 p-6 sm:p-8 animate-in zoom-in-95 duration-500">
+                        <SocialAuth />
+
+                        <div className="flex items-center gap-3 my-6">
+                            <hr className="flex-1 border-slate-200" />
+                            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Atau daftar manual</span>
+                            <hr className="flex-1 border-slate-200" />
+                        </div>
+
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
 
@@ -342,6 +351,14 @@ export default function RegisterPage() {
                     <div className="text-center lg:text-left space-y-2">
                         <h1 className="text-3xl font-bold tracking-tight text-slate-900">Create Account</h1>
                         <p className="text-slate-500 text-sm">Start your 14-day free trial with Elysian.</p>
+                    </div>
+
+                    <SocialAuth />
+
+                    <div className="flex items-center gap-3 py-2">
+                        <hr className="flex-1 border-slate-200" />
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Atau daftar manual</span>
+                        <hr className="flex-1 border-slate-200" />
                     </div>
 
                     <Form {...form}>

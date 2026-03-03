@@ -1,6 +1,16 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { config } from './config';
 import { globalDegradation } from './globalDegradation';
+import { useAuthStore } from '@/store/authStore';
+
+// Safe cookie reader
+const getCookie = (name: string) => {
+    if (typeof document === 'undefined') return null;
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+    return null;
+};
 
 class HttpClient {
     private client: AxiosInstance;
@@ -9,6 +19,7 @@ class HttpClient {
         this.client = axios.create({
             baseURL: config.api.baseURL,
             timeout: config.api.timeout,
+            withCredentials: true, // Vital for HttpOnly session execution & CSRF
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -18,37 +29,46 @@ class HttpClient {
     }
 
     private setupInterceptors() {
-        // Request interceptor
+        // Request interceptor: CSRF Token Injection
         this.client.interceptors.request.use(
             (config) => {
-                // Add auth token if available
-                const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
-                if (token) {
-                    config.headers.Authorization = `Bearer ${token}`;
+                const method = config.method?.toLowerCase();
+                // Inject CSRF mitigation for destructive/mutation endpoints
+                if (method && ['post', 'put', 'patch', 'delete'].includes(method)) {
+                    const csrfToken = getCookie('XSRF-TOKEN') || getCookie('csrf_token');
+                    if (csrfToken) {
+                        config.headers['X-XSRF-TOKEN'] = decodeURIComponent(csrfToken);
+                        config.headers['X-CSRF-Token'] = decodeURIComponent(csrfToken);
+                    }
                 }
                 return config;
             },
             (error) => Promise.reject(error)
         );
 
-        // Response interceptor — detect service degradation from organic failures
+        // Response interceptor: Global 401 & degradation handling
         this.client.interceptors.response.use(
             (response) => {
-                // Successful response → clear any degraded state for this service
                 globalDegradation.clearFor(response.config.url);
                 return response;
             },
             (error) => {
                 const status = error.response?.status;
 
+                // The Global 401 Interceptor: Kills Zombie Sessions
                 if (status === 401) {
-                    // Redirect to login on unauthorized
                     if (typeof window !== 'undefined') {
-                        window.location.href = '/login';
+                        // 1. Force state synchronization (delete from memory)
+                        useAuthStore.getState().logout();
+
+                        // 2. Prevent infinite loops by checking route
+                        const path = window.location.pathname;
+                        if (!path.includes('/login') && !path.includes('/register') && !path.includes('/callback')) {
+                            window.location.href = '/login?session_expired=true';
+                        }
                     }
                 }
 
-                // Detect service degradation from organic API failures
                 if (status === 503 || status === 504 || status === 429) {
                     globalDegradation.markDegraded(error.config?.url, status);
                 }

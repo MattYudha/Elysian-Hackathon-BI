@@ -20,6 +20,7 @@ import { useAuthStore } from '@/store/authStore';
 import RiveLoginAvatar from '@/components/ui/rive-login-avatar';
 
 import { ElysianTextLogo } from '@/components/ui/elysian-logo';
+import { SocialAuth } from '@/components/auth/social-auth';
 
 const formSchema = z.object({
     email: z.string(),
@@ -134,6 +135,14 @@ export default function LoginPage() {
                         <p className="text-slate-500 text-xs font-medium mt-1">Masukkan kredensial Anda untuk mengakses fitur.</p>
                     </div>
 
+                    <SocialAuth />
+
+                    <div className="flex items-center gap-3 my-6">
+                        <hr className="flex-1 border-slate-200" />
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Atau masuk manual</span>
+                        <hr className="flex-1 border-slate-200" />
+                    </div>
+
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                             <FormField
@@ -236,6 +245,14 @@ export default function LoginPage() {
                         <p className="text-slate-500 text-sm">
                             Masukkan kredensial Anda untuk mengakses ruang kerja.
                         </p>
+                    </div>
+
+                    <SocialAuth />
+
+                    <div className="flex items-center gap-3 py-2">
+                        <hr className="flex-1 border-slate-200" />
+                        <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Atau masuk manual</span>
+                        <hr className="flex-1 border-slate-200" />
                     </div>
 
                     <Form {...form}>

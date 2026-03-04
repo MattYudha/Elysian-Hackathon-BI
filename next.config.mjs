@@ -89,7 +89,7 @@ const nextConfig = {
                     {
                         key: 'Content-Security-Policy',
                         value: `
-                            default-src 'self' http://localhost:7777 ws://localhost:3000 wss://localhost:3000;
+                            default-src 'self' https://backend-elysian-production.up.railway.app ws://localhost:3000 wss://localhost:3000;
                             script-src 'self' 'unsafe-eval' 'unsafe-inline';
                             style-src 'self' 'unsafe-inline' https://api.fontshare.com;
                             img-src 'self' blob: data: https:;
@@ -98,7 +98,7 @@ const nextConfig = {
                             base-uri 'self';
                             form-action 'self';
                             frame-ancestors 'none';
-                            connect-src 'self' http://localhost:7777 ws://localhost:3000 wss://localhost:3000 https://*.ingest.sentry.io https://unpkg.com https://cdn.jsdelivr.net;
+                            connect-src 'self' https://backend-elysian-production.up.railway.app ws://localhost:3000 wss://localhost:3000 https://*.ingest.sentry.io https://unpkg.com https://cdn.jsdelivr.net;
                         `.replace(/\s{2,}/g, ' ').trim(),
                     }
                 ],

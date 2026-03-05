@@ -39,7 +39,7 @@ export default function ProfilePage() {
             jobTitle: 'System Administrator', // Mock
             phone: '',
             bio: 'Passionate about building great user experiences.',
-            avatar: user?.avatar || null,
+            avatar: user?.avatar || undefined,
             links: []
         }
     });
@@ -58,7 +58,7 @@ export default function ProfilePage() {
                 jobTitle: 'System Administrator',
                 phone: '',
                 bio: 'Passionate about building great user experiences.',
-                avatar: user?.avatar || null,
+                avatar: user?.avatar || undefined,
                 links: []
             });
         }
@@ -89,7 +89,7 @@ export default function ProfilePage() {
                 login({
                     ...user,
                     name: response.user.name,
-                    avatar: response.user.avatar_url || null
+                    avatar: response.user.avatar_url || undefined
                 });
             }
 

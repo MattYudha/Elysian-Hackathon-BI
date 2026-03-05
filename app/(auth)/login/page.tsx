@@ -81,7 +81,7 @@ export default function LoginPage() {
             setTimeout(() => {
                 const redirectTo = sessionStorage.getItem('redirect_after_login') || '/dashboard';
                 sessionStorage.removeItem('redirect_after_login');
-                router.push(redirectTo);
+                window.location.href = redirectTo;
             }, 1000);
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

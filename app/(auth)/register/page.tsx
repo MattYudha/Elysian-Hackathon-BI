@@ -114,7 +114,7 @@ export default function RegisterPage() {
             });
 
             toast.success('Pendaftaran berhasil! Silakan masuk.');
-            router.push('/login');
+            window.location.href = '/login';
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error("Register API Error:", error);

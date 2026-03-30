@@ -1,12 +1,18 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
+<<<<<<< Updated upstream
 import { UploadCloud, FileText, X, CheckCircle2, AlertCircle } from "lucide-react";
+=======
+import { UploadCloud, FileText, X, CheckCircle2, Loader2, Database, Cog } from "lucide-react";
+>>>>>>> Stashed changes
 import { useDropzone } from "react-dropzone";
 import { cn } from "@/lib/utils";
+import { rag } from "@/lib/sdk/modules/rag";
 
 
 export interface FileUploadZoneProps {
+<<<<<<< Updated upstream
     tenantId: string;
     authToken: string;
     onUploadComplete?: (documentId: string, filename: string) => void;
@@ -16,6 +22,29 @@ type UploadStatus = 'uploading' | 'completed' | 'error';
 type QueueItem = { file: File; progress: number; status: UploadStatus; error?: string };
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:7777';
+=======
+    onUpload?: (files: File[], category?: string) => void;
+}
+
+const REGULATORY_TAGS = [
+    { id: 'pbi', label: '[PBI] Peraturan BI', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
+    { id: 'pojk', label: '[POJK] Peraturan OJK', color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300' },
+    { id: 'katalog', label: '[Katalog] Harga Daerah', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
+    { id: 'laporan', label: '[Laporan] Data Mentah', color: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' }
+];
+
+export function FileUploadZone({ onUpload }: FileUploadZoneProps) {
+    const [uploadQueue, setUploadQueue] = useState<{ file: File; progress: number; status: 'uploading' | 'completed' | 'error' }[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<string>('laporan');
+
+    const onDrop = useCallback(async (acceptedFiles: File[]) => {
+        // 1. Initial State
+        const newFiles = acceptedFiles.map(file => ({
+            file,
+            progress: 0,
+            status: 'uploading' as const
+        }));
+>>>>>>> Stashed changes
 
 async function uploadFileViaPresign(
     file: File,
@@ -36,6 +65,7 @@ async function uploadFileViaPresign(
     if (!presignRes.ok) throw new Error('Failed to get presigned URL');
     const { presigned_url, object_key } = await presignRes.json();
 
+<<<<<<< Updated upstream
     onProgress(20); // Presign done
 
     // Step 2: PUT file directly to S3/MinIO (no server RAM usage)
@@ -92,6 +122,47 @@ export function FileUploadZone({ tenantId, authToken, onUploadComplete }: FileUp
             }
         }
     }, [tenantId, authToken, onUploadComplete]);
+=======
+        // 2. Process each file
+        for (const item of newFiles) {
+            try {
+                // Step A: Upload and get Document ID (HTTP 202)
+                const res = await rag.uploadDocument(item.file, selectedCategory, "tenant-1");
+                if (!res.success || !res.documentId) throw new Error("Upload refused");
+
+                const docId = res.documentId;
+                const startTime = Date.now();
+
+                // Step B: Poll until COMPLETED or FAILED
+                const pollInterval = setInterval(async () => {
+                    const elapsed = Date.now() - startTime;
+                    const pollRes = await rag.pollDocumentStatus(docId, elapsed);
+
+                    setUploadQueue(prev => prev.map(q => {
+                        if (q.file === item.file) {
+                            // Map backend status to UI status
+                            let uiStatus = q.status;
+                            if (pollRes.status === 'COMPLETED') uiStatus = 'completed';
+                            else if (pollRes.status === 'FAILED') uiStatus = 'error';
+
+                            return { ...q, progress: pollRes.progress, status: uiStatus, backendState: pollRes.status };
+                        }
+                        return q;
+                    }));
+
+                    if (pollRes.status === 'COMPLETED') {
+                        clearInterval(pollInterval);
+                        if (onUpload) onUpload([item.file], selectedCategory);
+                    } else if (pollRes.status === 'FAILED') {
+                        clearInterval(pollInterval);
+                    }
+                }, 1500); // Poll every 1.5s
+            } catch (err) {
+                setUploadQueue(prev => prev.map(q => q.file === item.file ? { ...q, status: 'error' } : q));
+            }
+        }
+    }, [onUpload, selectedCategory]);
+>>>>>>> Stashed changes
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
@@ -109,6 +180,29 @@ export function FileUploadZone({ tenantId, authToken, onUploadComplete }: FileUp
 
     return (
         <div className="space-y-4">
+            {/* Context/Category Selector */}
+            <div className="space-y-2 mb-4">
+                <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Document Category / Context
+                </label>
+                <div className="flex flex-wrap gap-2">
+                    {REGULATORY_TAGS.map((tag) => (
+                        <button
+                            key={tag.id}
+                            onClick={() => setSelectedCategory(tag.id)}
+                            className={cn(
+                                "text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-sm",
+                                selectedCategory === tag.id 
+                                    ? `ring-2 ring-offset-1 ring-blue-500/50 ${tag.color}` 
+                                    : "bg-white dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 hover:bg-slate-50"
+                            )}
+                        >
+                            {tag.label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             {/* Drop Zone Area */}
             <div
                 {...getRootProps()}
@@ -174,7 +268,21 @@ export function FileUploadZone({ tenantId, authToken, onUploadComplete }: FileUp
                                     <div className="flex items-center gap-2 text-xs text-slate-500">
                                         <span>{(item.file.size / 1024).toFixed(0)} KB</span>
                                         {item.status === 'uploading' && (
+<<<<<<< Updated upstream
                                             <><span>•</span><span className="text-blue-500 font-medium">Uploading {item.progress}%</span></>
+=======
+                                            <>
+                                                <span>•</span>
+                                                <span className="text-blue-500 font-medium flex items-center gap-1">
+                                                    <Loader2 className="w-3 h-3 animate-spin" />
+                                                    {/* @ts-ignore - dynamic property from state injection */}
+                                                    {item.backendState === 'PARSING' ? 'Extracting Text...' 
+                                                        // @ts-ignore
+                                                        : item.backendState === 'VECTORIZING' ? 'Embedding AI...' 
+                                                        : 'Uploading...'} {item.progress}%
+                                                </span>
+                                            </>
+>>>>>>> Stashed changes
                                         )}
                                         {item.status === 'completed' && (
                                             <><span>•</span><span className="text-green-500 font-medium">Queued for indexing</span></>

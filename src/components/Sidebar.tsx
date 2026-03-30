@@ -37,14 +37,14 @@ export function Sidebar() {
             )}>
                 {isOpen ? (
                     <div className="flex items-center gap-3">
-                        <Image src="/logo.svg" alt="Elysian Logo" width={54} height={54} className="relative z-10 scale-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.7)]" />
+                        <Image src="/assets/logo.svg" alt="Elysian Logo" width={54} height={54} className="relative z-10 scale-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.7)]" />
                         <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-[#338DB0] to-[#479BBA] dark:from-blue-100 dark:via-blue-200 dark:to-white bg-clip-text text-transparent font-heading drop-shadow-sm">
                             Elysian
                         </h1>
                     </div>
                 ) : (
                     <div className="flex justify-center mb-2">
-                        <Image src="/logo.svg" alt="Elysian Logo" width={48} height={48} className="relative z-10 scale-100 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]" />
+                        <Image src="/assets/logo.svg" alt="Elysian Logo" width={48} height={48} className="relative z-10 scale-100 drop-shadow-[0_0_12px_rgba(255,255,255,0.6)]" />
                     </div>
                 )}
 

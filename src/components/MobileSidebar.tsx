@@ -51,7 +51,7 @@ export function MobileSidebar() {
                             <div className="relative">
                                 <div className="absolute inset-0 bg-blue-400 blur-lg opacity-20 rounded-full" />
                                 <Image
-                                    src="/logo.svg"
+                                    src="/assets/logo.svg"
                                     alt="Elysian"
                                     width={42}
                                     height={42}
